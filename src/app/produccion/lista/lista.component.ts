@@ -24,7 +24,10 @@ import { ProduccionService } from '../produccion.service';
 export class ListaComponent implements OnInit {
 
   cargando: boolean = false;
-  showDialog:boolean = false;
+
+  showProduccion:boolean = false;
+
+  obj_produccion:any = { 'cliente': {}};
   
   // # SECCION: Esta sección es para mostrar mensajes
   mensajeError: Mensaje = new Mensaje();
@@ -108,4 +111,13 @@ export class ListaComponent implements OnInit {
       }
     );
   }
+
+  ver_produccion(obj:any):void
+  {
+    console.log(obj);
+    this.obj_produccion = obj;
+    this.showProduccion = true;
+  }
 }
+
+

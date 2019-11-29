@@ -39,7 +39,7 @@
     "font-awesome": "^4.7.0",
     "highcharts": "^5.0.14",
     "immutable": "^3.8.2",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "jspdf": "^1.3.5",
     "moment": "^2.20.1",
     "ng2-ckeditor": "^1.1.14",
@@ -56,7 +56,7 @@
   "devDependencies": {
     "@angular/cli": "^1.6.3",
     "@angular/compiler-cli": "^5.1.3",
-    "@compodoc/compodoc": "^1.0.7",
+    "@compodoc/compodoc": "^1.1.11",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.101",
     "codelyzer": "~2.0.0",

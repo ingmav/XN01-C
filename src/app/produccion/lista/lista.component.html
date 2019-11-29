@@ -25,14 +25,6 @@
                                 <label class="label" style="color: #FFF">Buscar Trabajo</label>
                                 <input class="input is-medium" type="text" placeholder="Buscar">
                             </div>
-                            
-                           
-                            <!--<div class="column" align='right'>
-                                <a class="button is-medium is-primary is-inverted " (click)='crear_nuevo()'>
-                                    <span class="icon"><i class="fa fa-plus"></i></span><span>Nuevo</span>
-                                </a>
-                                
-                            </div>-->
                         </div>
                         
                     </div>
@@ -52,7 +44,7 @@
                             <th>Cliente</th>
                             <th>Descripción</th>
                             <th>Estatus</th>
-                            <th></th>
+                            <th style="min-width: 200px;"></th>
                         </tr>
                         
                     </thead>
@@ -63,7 +55,35 @@
                             <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf="item.tipo_venta == 1">{{ item.descripcion }}</td>
                             <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf="item.tipo_venta == 2">Venta de Mostrador</td>
                             <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" >{{ item.estatus }}</td>
-                            <td style="vertical-align: middle;cursor:pointer;" ><i class="fa fa-trash" style="cursor:pointer" (click)="eliminar_tema(item.id)"></i></td>
+                            <!--<td style="vertical-align: middle;cursor:pointer;" *ngIf="item.produccion==null">
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Diseño
+                                </label><br>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Impresión
+                                </label><br>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Preparación
+                                </label><br>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Instalación
+                                </label><br>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Entrega
+                                </label><br>
+                                <label class="checkbox">
+                                    <input type="checkbox">
+                                    Maquilas
+                                </label>
+                            </td>-->
+                            <td style="vertical-align: middle;cursor:pointer;">
+                                <button type="button" class="button is-primary" (click)="ver_produccion(item)"><i class="fa fa-arrow-right" style="cursor:pointer"></i></button>
+                            </td>
                         </tr>
                         <tr *ngIf="lista.length == 0">
                             <td colspan="3" style="vertical-align: middle;cursor:pointer; color:#888;">Esta lista está vacía.</td>                    
@@ -74,7 +94,7 @@
                             <th style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)">{{ item.folio }}</th>
                             <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf='item.ambito!=null'>{{ item.ambito.descripcion }}</td>
                             <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf='item.ambito == null'> Sin Ambito</td>
-                            <td style="vertical-align: middle;cursor:pointer;" ><i class="fa fa-trash" style="cursor:pointer" (click)="eliminar_tema(item.id)"></i></td>
+                            <td style="vertical-align: middle;cursor:pointer;" ><i class="fa fa-arrow-right" style="cursor:pointer"></i></td>
                         </tr>
 
                         <tr *ngIf="resultadosBusqueda.length == 0 && busquedaActivada">
@@ -108,3 +128,101 @@
         </div>
     </div>
 </div>    
+
+<div id="modal-tema" class="modal is-active" [ngClass]="{'is-active': showProduccion}">
+    <div class="modal-background"  (click)="showProduccion = !showProduccion"></div>
+    <div class="modal-card" style="width:60%; height: auto;">
+        <header class="modal-card-head" style="background-color: #00d1b2" >
+            <div class="container is-fluid"  style="width:100%;">
+                <h1 class="title" style="color:#FFF;">
+                    <span class="icon is-medium"><i class="fa fa-word"></i></span> Producción
+                </h1>
+            </div>            
+            <a class="button  is-primary" style="position:absolute; top:1em; right:1em;" (click)="showProduccion = !showProduccion"><span class="icon "><i class="fa fa-close"></i></span></a>
+        </header>
+        <section class="section" style="padding: 1rem;">
+            <div class="columns">
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Folio</label>
+                        <div class="control">
+                            <input class="input" type="text" value="{{ obj_produccion.folio }} ">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Fecha</label>
+                        <div class="control">
+                            <input class="input" type="text" value="{{ obj_produccion.fecha }} ">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Cliente</label>
+                        <div class="control">
+                            <input class="input" type="text" value="{{ obj_produccion.cliente.nombre }}">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="columns">
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Descripción</label>
+                        <div class="control">
+                            <textarea class="textarea">{{ obj_produccion.descripcion }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <th>Articulo</th>
+                            <th>Unidades</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item_articulos of obj_produccion.ventas_detalles; let i=index">
+                                <td><b>{{ item_articulos.articulo.nombre }}</b><br>{{ item_articulos.notas }}</td>
+                                <td>{{ item_articulos.unidades }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-12">
+                    <label class="checkbox">
+                        <input type="checkbox" class="is-medium">
+                        Diseño
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Impresión
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Preparación
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Instalación
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Entrega
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Maquilas
+                    </label>
+                        
+                </div>
+            </div>        
+        </section>
+        <footer class="" style="position:relative; padding:1em;background: #FFF; border-top:0px solid #EEE; border-radius:0 0 0.8em 0.8em " >
+        </footer>
+    </div>
+</div>
