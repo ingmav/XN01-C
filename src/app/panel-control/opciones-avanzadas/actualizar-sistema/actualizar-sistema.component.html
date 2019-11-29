@@ -1,0 +1,65 @@
+<panel-control-menu></panel-control-menu>
+<div style="height:50px;"></div>
+<div class="contenedor columns " style="height:100%">
+    <div class="column is-one-quarter is-hidden-mobile">
+        <panel-control-menu-aside></panel-control-menu-aside>
+    </div>
+    <div class="column" style="padding:2em;">
+        <div style="background: #FFF; border-radius: 1em; overflow: hidden;">
+            <section class="hero is-primary">
+                <div class="hero-body">
+                    <div class="container is-fluid">
+                        <h1 class="title">
+                            <span  *ngIf="!cargando" class="icon is-medium"><i class="fa fa-wrench"></i></span>
+                            <span  *ngIf="cargando" class="icon is-medium"><i class="fa fa-refresh fa-spin"></i></span> 
+                            Actualizar sistema
+                        </h1>
+                        
+                    </div>
+                </div>
+			</section>
+			<section class="section">
+				<h1 class="title">Importante</h1>
+				<p>Antes de realizar cualquier actualización al sistema, es recomendable hacer una <a routerLink="/panel-control/opciones-avanzadas/base-datos">copia de la base de datos</a>.</p>
+			</section>
+			<hr>
+            <section class="section">
+              	<h1 class="title"><span class="icon is-medium"><i class="fa fa-github"></i></span> Actualización en línea</h1>
+			  	<p>Para realizar esta operación es necesario contar con una <strong>conexión a internet</strong>. Este proceso se realizará <span class="icon"><i class="fa fa-magic"></i></span> <strong>automágicamente</strong> <span class="icon"><i class="fa fa-magic"></i></span> después de presionar el siguiente botón:</p>
+				<br>
+			  	<div style="text-align:center;"><a class="button is-primary is-medium" [ngClass]="{ 'is-loading': cargando}" (click)="actualizarViaGit()"><span class="icon"><i class="fa fa-refresh"></i></span> <span>Actualizar ahora</span></a></div>
+            </section>
+            <hr>
+            <section class="section">
+                <h1 class="title"><span class="icon is-medium"><i class="fa fa-wrench"></i></span> Actualización manual</h1>
+                <p>Este procedimiento es peligroso, solo llevar a cabo si ha recibido la capacitación correspondiente, si tiene dudas pregunte con el personal del <strong>Área de Informática</strong> de la <i>Dirección de Planeación y Desarrollo</i> de  <i>Oficina Central</i>.</p>
+            </section>
+        </div>
+        
+       
+       
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{ 'is-active': mostrarLog }">
+    <div class="modal-background" (click)="mostrarLog = !mostrarLog"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+        <p class="modal-card-title">Detalles de la actualización</p>
+        <button class="delete" (click)="mostrarLog = !mostrarLog"></button>
+        </header>
+        <section class="modal-card-body is-paddingless">
+            <div class="content ">
+                <pre>{{ logActualizacion }}</pre>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+        <a class="button" (click)="mostrarLog = !mostrarLog">Cerrar</a>
+        </footer>
+    </div>
+</div>
+
+
+
+
+
