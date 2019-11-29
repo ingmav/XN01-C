@@ -1,4 +1,4 @@
-# X6-C
+# XN01-C
 
 - Angular 2
 - Bulma.io
@@ -14,7 +14,7 @@ mkdir mi_proyecto  && cd mi_proyecto
 - Inicializar repositorio apuntando al proyecto cambiamos la palabra **origin** por **github** para saber de donde viene:
 ```
 git init
-git remote add -f github https://github.com/XXAI/X6-C.git
+git remote add -f github https://github.com/XXAI/XN01-C.git
 ```
 
 - Configuramos para que solo baje la carpeta de distribucion:

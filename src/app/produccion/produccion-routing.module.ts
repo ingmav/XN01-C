@@ -13,8 +13,8 @@ const routes: Routes =  [
   {
     path: 'produccion',
     children: [
-       { path: '', component: ListaComponent, canActivate: [PermisosGuard], data: { key: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'} },   
-       { path: 'lista', component: ListaComponent, canActivate: [PermisosGuard], data: { key: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'} }, 
+       { path: '', component: ListaComponent, canActivate: [PermisosGuard], data: { key: 'BXn7v2ocepOf6bI9Ae5BwQlQqdGtpA7K'} },   
+       { path: 'lista', component: ListaComponent, canActivate: [PermisosGuard], data: { key: 'BXn7v2ocepOf6bI9Ae5BwQlQqdGtpA7K'} }, 
        { path: 'diseno', component: DisenoComponent, canActivate: [PermisosGuard], data: { key: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'} }, 
        { path: 'impresion', component: ImpresionComponent, canActivate: [PermisosGuard], data: { key: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'} }, 
        { path: 'terminados', component: TerminadoComponent, canActivate: [PermisosGuard], data: { key: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'} }, 

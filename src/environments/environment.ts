@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   VERSION: "1.0",
-  API_URL: "http://localhost/proyectos_nexprint/msweb/api/public",
+  API_URL: "http://localhost/proyectos_nexprint/msweb/XN01-A/public/",
 
 };

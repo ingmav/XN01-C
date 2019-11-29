@@ -26,9 +26,9 @@ export class HubComponent implements OnInit {
       ]
     },
     {
-      title: 'Seleccion', routerLink: '/cajero/clientes', icono: 'assets/seleccion.svg',
+      title: 'Seleccion', routerLink: '/produccion', icono: 'assets/seleccion.svg',
       permisos: [
-        'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'// Ver usuarios
+        'BXn7v2ocepOf6bI9Ae5BwQlQqdGtpA7K'// Ver usuarios
       ]
     },
     {
