@@ -28,13 +28,13 @@ export class HubComponent implements OnInit {
     {
       title: 'Seleccion', routerLink: '/produccion', icono: 'assets/seleccion.svg',
       permisos: [
-        'BXn7v2ocepOf6bI9Ae5BwQlQqdGtpA7K'// Ver usuarios
+        '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA'// Ver usuarios
       ]
     },
     {
       title: 'Produccion', routerLink: '/produccion', icono: 'assets/produccion2.svg',
       permisos: [
-        'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'// Ver usuarios
+        '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA'// Ver usuarios
         //Diseño
         //Impresion
         //Preparacion e Instalación o Entrega
@@ -44,7 +44,7 @@ export class HubComponent implements OnInit {
     {
       title: 'Tablero General', routerLink: '/produccion', icono: 'assets/hub-tablero.svg',
       permisos: [
-        'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH'// Ver usuarios
+        'KaO6yvc7zbPGwlsViUtNZg94Bk9E0ThZ'// Ver usuarios
       ]
     },
     {

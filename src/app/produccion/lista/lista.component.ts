@@ -24,10 +24,9 @@ import { ProduccionService } from '../produccion.service';
 export class ListaComponent implements OnInit {
 
   cargando: boolean = false;
-
   showProduccion:boolean = false;
-
   obj_produccion:any = { 'cliente': {}};
+  produccion:any = { 'ventas_id':0, 'diseno':false, 'impresion': false, 'preparacion':false, 'instalacion':false, 'entrega':false, 'maquilas':false, 'descripcion': '' }; 
   
   // # SECCION: Esta sección es para mostrar mensajes
   mensajeError: Mensaje = new Mensaje();
@@ -38,7 +37,6 @@ export class ListaComponent implements OnInit {
   // # FIN SECCION
 
   // # SECCION: Lista de porgramacion
-  busqueda: any = {buscarText:'', id_jurisdiccion: '0', id_tipo:'0'};
   lista: any[] = [];
   paginaActual = 1;
   resultadosPorPagina = 25;
@@ -64,11 +62,68 @@ export class ListaComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.title.setTitle("Trabajos en Espera");
+    this.title.setTitle("TRABAJOS EN ESPERA");
     this.mensajeError = new Mensaje();
     this.mensajeExito = new Mensaje();
 
     this.listar(1);
+
+    var self = this;
+
+    var busquedaSubject = this.terminosBusqueda
+	    .debounceTime(300) // Esperamos 300 ms pausando eventos
+	    .distinctUntilChanged() // Ignorar si la busqueda es la misma que la ultima
+	    .switchMap((term:string)  =>  { 
+	      
+        this.busquedaActivada = term != "" ? true: false;
+
+        this.ultimoTerminoBuscado = term;
+        this.paginaActualBusqueda = 1;
+        this.cargando = true;
+	      return term  ? this.produccionService.buscar_detalle(term, this.paginaActualBusqueda, this.resultadosPorPaginaBusqueda) : Observable.of<any>({data:[]}) 
+	    }
+	      
+	    
+	    ).catch( function handleError(error){ 
+	     
+	      self.cargando = false;      
+	      self.mensajeError.mostrar = true;
+	      self.ultimaPeticion = function(){self.listarBusqueda(self.ultimoTerminoBuscado,self.paginaActualBusqueda);};//OJO
+	      try {
+	        let e = error.json();
+	        if (error.status == 401 ){
+	          self.mensajeError.texto = "No tiene permiso para hacer esta operación.";
+	        }
+	      } catch(e){
+	        console.log("No se puede interpretar el error");
+	        
+	        if (error.status == 500 ){
+	          self.mensajeError.texto = "500 (Error interno del servidor)";
+	        } else {
+	          self.mensajeError.texto = "No se puede interpretar el error. Por favor contacte con soporte técnico si esto vuelve a ocurrir.";
+	        }            
+	      }
+	      // Devolvemos el subject porque si no se detiene el funcionamiento del stream 
+	      return busquedaSubject
+	    
+	    });
+
+	    busquedaSubject.subscribe(
+	      resultado => {
+	        this.cargando = false;
+	        this.resultadosBusqueda = resultado.data as any[];
+	        this.totalBusqueda = resultado.total | 0;
+	        this.paginasTotalesBusqueda = Math.ceil(this.totalBusqueda / this.resultadosPorPaginaBusqueda);
+
+	        this.indicePaginasBusqueda = [];
+	        for(let i=0; i< this.paginasTotalesBusqueda; i++){
+	          this.indicePaginasBusqueda.push(i+1);
+	        }
+	        
+	        console.log("Búsqueda cargada.");
+	      }
+
+	    );
   }
 
   listar(paginate:number):void{
@@ -114,10 +169,117 @@ export class ListaComponent implements OnInit {
 
   ver_produccion(obj:any):void
   {
-    console.log(obj);
+    /*console.log(this.produccion_reset);
+    
+    this.produccion = this.produccion_reset;
+    
+    */
     this.obj_produccion = obj;
+    this.produccion = { 'ventas_id':0, 'diseno':true, 'impresion_gf': true, 'impresion_d': true, 'preparacion':true, 'instalacion':true, 'entrega':false, 'maquilas':false, 'descripcion': '' }; 
     this.showProduccion = true;
+    this.produccion.ventas_id = obj.id;
+    //console.log(this.obj_produccion);
+  }
+
+  agregar_produccion():void
+  {
+    
+    if(this.produccion.diseno == false && this.produccion.impresion == false && this.produccion.preparacion == false && this.produccion.instalacion == false && this.produccion.entrega == false && this.produccion.maquilas == false)
+    {
+      this.mensajeError.mostrar = true;
+      this.mensajeError.texto = "Debe de seleccionar al menos una accion de producción";
+    }else
+    {
+      //console.log("entro");
+      this.produccionService.guardar_produccion(this.produccion).subscribe(
+        resultado => {
+          this.listar(1);
+          this.showProduccion = false;
+          this.mensajeExito.mostrar = true;
+          this.mensajeExito.texto = "Se ha gaurdado Exitosamente el trabajo";
+        },
+        error => {
+          this.cargando = false;
+          this.mensajeError.mostrar = true;
+          this.ultimaPeticion = this.listar;
+          try {
+            let e = error.json();
+            if (error.status == 401 ){
+              this.mensajeError.texto = "No tiene permiso para hacer esta operación.";
+            }
+          } catch(e){
+            console.log("No se puede interpretar el error");
+            
+            if (error.status == 500 ){
+              this.mensajeError.texto = "500 (Error interno del servidor)";
+            } else {
+              this.mensajeError.texto = "No se puede interpretar el error. Por favor contacte con soporte técnico si esto vuelve a ocurrir.";
+            }            
+          }
+  
+        }
+      );
+    }
+    //console.log(this.produccion);
+  }
+
+  listarBusqueda(term:string ,pagina:number): void {
+    this.paginaActualBusqueda = pagina;
+
+    this.cargando = true;
+    this.produccionService.buscar_detalle(term, pagina, this.resultadosPorPaginaBusqueda).subscribe(
+        resultado => {
+          this.cargando = false;
+
+          this.resultadosBusqueda = resultado.data as any[];
+
+          this.totalBusqueda = resultado.total | 0;
+          this.paginasTotalesBusqueda = Math.ceil(this.totalBusqueda / this.resultadosPorPaginaBusqueda);
+
+          this.indicePaginasBusqueda = [];
+          for(let i=0; i< this.paginasTotalesBusqueda; i++){
+            this.indicePaginasBusqueda.push(i+1);
+          }
+          
+        },
+        error => {
+          this.cargando = false;
+          this.mensajeError.mostrar = true;
+          this.ultimaPeticion = function(){this.listarBusqueda(term,pagina);};
+          try {
+            let e = error.json();
+            if (error.status == 401 ){
+              this.mensajeError.texto = "No tiene permiso para hacer esta operación.";
+            }
+          } catch(e){
+            console.log("No se puede interpretar el error");
+            
+            if (error.status == 500 ){
+              this.mensajeError.texto = "500 (Error interno del servidor)";
+            } else {
+              this.mensajeError.texto = "No se puede interpretar el error. Por favor contacte con soporte técnico si esto vuelve a ocurrir.";
+            }            
+          }
+
+        }
+      );
+  }
+
+  buscar(term: string): void {
+		this.terminosBusqueda.next(term);
+  }
+  
+  paginaSiguiente():void {
+    this.listar(this.paginaActual+1);
+  }
+  paginaAnterior():void {
+      this.listar(this.paginaActual-1);
+  }
+
+  paginaSiguienteBusqueda(term:string):void {
+      this.listarBusqueda(term,this.paginaActualBusqueda+1);
+  }
+  paginaAnteriorBusqueda(term:string):void {
+      this.listarBusqueda(term,this.paginaActualBusqueda-1);
   }
 }
-
-

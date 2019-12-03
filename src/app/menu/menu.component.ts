@@ -8,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   usuario: any = {};
+  mostrarMenuAside:boolean = false;
   constructor() { }
 
   ngOnInit() {
     this.usuario = JSON.parse(localStorage.getItem("usuario"));
+  }
+
+  toggleMenuAside()
+  {
+    
   }
 }

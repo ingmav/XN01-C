@@ -1,39 +1,35 @@
 <section class="hero is-primary" style="position: fixed; width: 100%;top:0px; z-index:99">
   <div class="hero-head">
       <div class="container is-fluid">
-          <nav class="nav is-primary">
-              <div class="nav-left">
-                  <a class="nav-item" routerLink="/produccion" routerLinkActive="active">
-                   <span class="icon">
-                      <i class="fa fa-cog"></i>
-                  </span> 
-                   <h1 class="title">&nbsp;Producción</h1>
-                  </a>
-              </div>
-              <a class="nav-item is-hidden-tablet" (click)="toggleMenuAside()">
-                  <span class="icon">
-                      <i class="fa fa-navicon"></i>
-                  </span>
-              </a>
-              <a class="nav-item"  (click)="hub.toggle()">
-                  <span class="icon">
-                      <i class="fa fa-th"></i>
-                  </span>
-              </a>
+            <nav class="navbar is-primary">
+                <div class="navbar-left">
+                    <a class="navbar-item is-brand" routerLink="/dashboard" routerLinkActive="active">
+                    <span class="icon">
+                        <i class="fa fa-cog"></i>
+                    </span> 
+                        <h1 class="title">&nbsp;Produccion</h1>
+                    </a>
+                </div>
 
-              <a class="nav-item is-hidden-mobile" (click)="perfil.toggle()">
-                  
-                  <figure class="image" style="width:26px;"><img src="assets/{{ usuario.avatar || 'avatar-unknow' }}.svg" alt="avatar"></figure>
-                  &nbsp;
-                  <span>{{ usuario.nombre }} {{ usuario.apellidos }}</span>
-              </a>
-              <a class="nav-item is-hidden-tablet" (click)="perfil.toggle()">
-                  
-                  <figure class="image" style="width:26px;"><img src="assets/{{ usuario.avatar || 'avatar-unknow' }}.svg" alt="avatar"></figure>
-              </a>
-             
-              
-          </nav>
+                
+
+                <div class="navbar-end">
+                    <a class="navbar-item"  (click)="hub.toggle()">
+                        <span class="icon">
+                            <i class="fa fa-th"></i>
+                        </span>
+                    </a>
+                    <a class="navbar-item is-hidden-mobile" (click)="perfil.toggle()">                    
+                        <figure class="image" style="width:26px;"><img src="assets/{{ usuario.avatar || 'avatar-unknow' }}.svg" alt="avatar"></figure>
+                        &nbsp;
+                        <span>{{ usuario.nombre }} {{ usuario.apellidos }}</span>
+                    </a>
+                    <a class="navbar-item is-hidden-tablet" (click)="perfil.toggle()">
+                        
+                        <figure class="image" style="width:26px;"><img src="assets/{{ usuario.avatar || 'avatar-unknow' }}.svg" alt="avatar"></figure>
+                    </a>
+                </div>
+            </nav>
       </div>
   </div>
 </section>

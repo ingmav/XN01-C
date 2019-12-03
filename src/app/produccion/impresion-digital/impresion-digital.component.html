@@ -10,12 +10,12 @@
                 
                 <div class="hero-body" style="position:relative;">
                     <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:1em;" (click)="busquedaActivada=false;searchBox.value='';resultadosBusqueda=[]"><span class="icon "><i class="fa fa-close"></i></span></a>
-                    <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:3.5em;" (click)="listarBusqueda(searchBox.value,1)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
+                    <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:3.5em;" (click)="listarBusqueda(searchBox.value,3)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
                     <a class="button  is-primary" *ngIf="!busquedaActivada" style="position:absolute; top:1em; right:1em;" (click)="listar(1)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
                     <div class="container is-fluid">
                         
                         <h1 class="title" *ngIf="!busquedaActivada">
-                            <span class="icon is-medium"><i class="fa fa-check-square-o"></i></span> Trabajos en Diseño
+                            <span class="icon is-medium"><i class="fa fa-check-square-o"></i></span> Trabajos en Impresión Digital
                         </h1>
                         <h1 class="title" *ngIf="busquedaActivada">
                             <span class="icon is-medium"><i class="fa fa-search"></i></span> Búsqueda 
@@ -66,11 +66,11 @@
                                 </table>    
                             </td>
                             <td>
-                                <button type="button" class="button is-default" (click)="agregar_agenda(item, 1)" *ngIf="item.calendario_diseno == 0"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-info" (click)="agregar_agenda(item, 1)" *ngIf="item.calendario_diseno == 1"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-default" (click)="iniciar_trabajo(item, 1)"  *ngIf="item.estatus_diseno != 2"><i class="fa fa-pause" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-info" (click)="iniciar_trabajo(item, 1)"  *ngIf="item.estatus_diseno == 2"><i class="fa fa-play" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-success" (click)="finalizar(item, 1)"><i class="fa  fa-check-square-o" style="cursor:pointer"></i></button>
+                                <button type="button" class="button is-default" (click)="agregar_agenda(item, 3)" *ngIf="item.calendario_impresion_digital == 0"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
+                                <button type="button" class="button is-info" (click)="agregar_agenda(item, 3)" *ngIf="item.calendario_impresion_digital == 1"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
+                                <button type="button" class="button is-default" (click)="iniciar_trabajo(item, 3)"  *ngIf="item.estatus_impresion_digital != 2"><i class="fa fa-pause" style="cursor:pointer"></i></button>
+                                <button type="button" class="button is-info" (click)="iniciar_trabajo(item, 3)"  *ngIf="item.estatus_impresion_digital == 2"><i class="fa fa-play" style="cursor:pointer"></i></button>
+                                <button type="button" class="button is-success" (click)="finalizar(item, 3)"><i class="fa  fa-check-square-o" style="cursor:pointer"></i></button>
                             </td>
                         </tr>
                         <tr *ngIf="lista.length == 0">
@@ -100,12 +100,12 @@
                                 </table>    
                             </td>
                             <td>
-                                <button type="button" class="button is-default" (click)="agregar_agenda(item, 1)" *ngIf="item.calendario_diseno == 0"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-info" (click)="agregar_agenda(item, 1)" *ngIf="item.calendario_diseno == 1"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-default" (click)="iniciar_trabajo(item, 1)"  *ngIf="item.estatus_diseno != 2"><i class="fa fa-pause" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-info" (click)="iniciar_trabajo(item, 1)"  *ngIf="item.estatus_diseno == 2"><i class="fa fa-play" style="cursor:pointer"></i></button>
-                                <button type="button" class="button is-success" (click)="finalizar(item, 1)"><i class="fa  fa-check-square-o" style="cursor:pointer"></i></button>
-                            </td>
+                              <button type="button" class="button is-default" (click)="agregar_agenda(item, 3)" *ngIf="item.calendario_impresion_digital == 0"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
+                              <button type="button" class="button is-info" (click)="agregar_agenda(item, 3)" *ngIf="item.calendario_impresion_digital == 1"><i class="fa fa-calendar" style="cursor:pointer"></i></button>
+                              <button type="button" class="button is-default" (click)="iniciar_trabajo(item, 3)"  *ngIf="item.estatus_impresion_digital != 2"><i class="fa fa-pause" style="cursor:pointer"></i></button>
+                              <button type="button" class="button is-info" (click)="iniciar_trabajo(item, 3)"  *ngIf="item.estatus_impresion_digital == 2"><i class="fa fa-play" style="cursor:pointer"></i></button>
+                              <button type="button" class="button is-success" (click)="finalizar(item, 3)"><i class="fa  fa-check-square-o" style="cursor:pointer"></i></button>
+                          </td>
                         </tr>
 
                         <tr *ngIf="resultadosBusqueda.length == 0 && busquedaActivada">

@@ -17,15 +17,15 @@ import { Mensaje } from '../../mensaje';
 import { ProduccionService } from '../produccion.service';
 
 @Component({
-  selector: 'app-maquilas',
-  templateUrl: './maquilas.component.html',
-  styleUrls: ['./maquilas.component.css']
+  selector: 'app-impresion-gf',
+  templateUrl: './impresion-gf.component.html',
+  styleUrls: ['./impresion-gf.component.css']
 })
-export class MaquilasComponent implements OnInit {
+export class ImpresionGfComponent implements OnInit {
 
   cargando: boolean = false;
   showProduccion:boolean = false;
-  etapa_produccion: number = 7;
+  etapa_produccion: number = 2;
 
   obj_produccion:any = { 'cliente': {}};
 
@@ -67,7 +67,7 @@ export class MaquilasComponent implements OnInit {
     private fb: FormBuilder) { }
 
     ngOnInit() {
-      this.title.setTitle("PRODUCCIÓN IMPRESIÓN DIGITAL");
+      this.title.setTitle("PRODUCCIÓN IMPRESIÓN GRAN FORMATO");
       this.mensajeError = new Mensaje();
       this.mensajeExito = new Mensaje();
   

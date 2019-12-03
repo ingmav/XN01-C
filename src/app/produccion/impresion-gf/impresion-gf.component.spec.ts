@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImpresionComponent } from './impresion.component';
+import { ImpresionGfComponent } from './impresion-gf.component';
 
-describe('ImpresionComponent', () => {
-  let component: ImpresionComponent;
-  let fixture: ComponentFixture<ImpresionComponent>;
+describe('ImpresionGfComponent', () => {
+  let component: ImpresionGfComponent;
+  let fixture: ComponentFixture<ImpresionGfComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImpresionComponent ]
+      declarations: [ ImpresionGfComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImpresionComponent);
+    fixture = TestBed.createComponent(ImpresionGfComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -26,15 +26,15 @@
                         <a class="delete" (click)="mostrarMensaje = false"></a>
                         <b>Error:</b> {{ mensaje }}
                     </div>
-                    <p class="control has-icon">
+                    <p class="control  has-icons-left">
                         <input class="input is-medium" [ngClass]="{'is-danger': mensaje}" type="text" name="id" id="id" placeholder="Usuario" [(ngModel)]="credenciales.id"  autofocus>
-                        <span class="icon is-small">
+                        <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                         </span>
                     </p>
-                    <p class="control has-icon">
+                    <p class="control  has-icons-left">
                         <input class="input is-medium" [ngClass]="{'is-danger': mensaje}" type="password" name="password" id="password" placeholder="Contraseña" [(ngModel)]="credenciales.password">
-                        <span class="icon is-small">
+                        <span class="icon is-small is-left">
                         <i class="fa fa-lock"></i>
                         </span>
                     </p>

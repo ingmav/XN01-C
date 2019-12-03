@@ -23,7 +23,7 @@
                         <div class="columns">
                             <div class="column">
                                 <label class="label" style="color: #FFF">Buscar Trabajo</label>
-                                <input class="input is-medium" type="text" placeholder="Buscar">
+                                <input class="input is-medium" type="text" #searchBox (keyup)="buscar(searchBox.value)" placeholder="Buscar">
                             </div>
                         </div>
                         
@@ -37,53 +37,39 @@
                 <br>
             </div>
             <div style="overflow:auto; display:block">
-                <table class="table" *ngIf="!cargando">
+                <table class="table is-fullwidth is-bordered is-striped" *ngIf="!cargando" style="font-size: 10pt;">
                     <thead>
                         <tr>
-                            <th>Folio</th>
-                            <th>Cliente</th>
-                            <th>Descripción</th>
-                            <th>Estatus</th>
-                            <th style="min-width: 200px;"></th>
+                            <th>FOLIO</th>
+                            <th>DATOS</th>
+                            <th style="width: 70px;"></th>
                         </tr>
                         
                     </thead>
                     <tbody  *ngIf="!busquedaActivada">
                         <tr *ngFor="let item of lista; let i=index">
-                            <th style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)">{{ item.folio }}</th>
-                            <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)">{{ item.cliente.nombre }}</td>
-                            <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf="item.tipo_venta == 1">{{ item.descripcion }}</td>
-                            <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf="item.tipo_venta == 2">Venta de Mostrador</td>
-                            <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" >{{ item.estatus }}</td>
-                            <!--<td style="vertical-align: middle;cursor:pointer;" *ngIf="item.produccion==null">
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Diseño
-                                </label><br>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Impresión
-                                </label><br>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Preparación
-                                </label><br>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Instalación
-                                </label><br>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Entrega
-                                </label><br>
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Maquilas
-                                </label>
-                            </td>-->
-                            <td style="vertical-align: middle;cursor:pointer;">
+                            <td><b>{{ item.folio }}</b></td>
+                            <td><b>CLIENTE:</b> {{ item.cliente.nombre }}<br>
+                                <b>DESCRIPCIÓN:</b> {{ item.descripcion }}<br>
+                                <table class="table is-bordered is-striped is-fullwidth" style="font-size: 9pt;">
+                                    <thead class="cabecera_articulos">
+                                        <tr>
+                                            <th>ARTÍCULO</th>
+                                            <th style="width: 80px;">UNIDADES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item_detalles of item.ventas_detalles; let i_de=index">
+                                            <td>- <b>{{ item_detalles.articulo.nombre }}</b><br>{{ item_detalles.notas }}</td>
+                                            <td>{{ item_detalles.unidades }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>    
+                            </td>
+                            <td>
                                 <button type="button" class="button is-primary" (click)="ver_produccion(item)"><i class="fa fa-arrow-right" style="cursor:pointer"></i></button>
                             </td>
+                           
                         </tr>
                         <tr *ngIf="lista.length == 0">
                             <td colspan="3" style="vertical-align: middle;cursor:pointer; color:#888;">Esta lista está vacía.</td>                    
@@ -91,10 +77,27 @@
                     </tbody>
                     <tbody *ngIf="busquedaActivada">
                         <tr *ngFor="let item of resultadosBusqueda; let i=index">
-                            <th style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)">{{ item.folio }}</th>
-                            <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf='item.ambito!=null'>{{ item.ambito.descripcion }}</td>
-                            <td style="vertical-align: middle;cursor:pointer;" (click)="editarTema(item)" *ngIf='item.ambito == null'> Sin Ambito</td>
-                            <td style="vertical-align: middle;cursor:pointer;" ><i class="fa fa-arrow-right" style="cursor:pointer"></i></td>
+                                <td><b>{{ item.folio }}</b></td>
+                                <td><b>CLIENTE:</b> {{ item.cliente.nombre }}<br>
+                                    <b>DESCRIPCIÓN:</b> {{ item.descripcion }}<br>
+                                    <table class="table is-bordered is-striped is-fullwidth" style="font-size: 9pt;">
+                                        <thead class="cabecera_articulos">
+                                            <tr>
+                                                <th>ARTÍCULO</th>
+                                                <th style="width: 80px;">UNIDADES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item_detalles of item.ventas_detalles; let i_de=index">
+                                                <td>- <b>{{ item_detalles.articulo.nombre }}</b><br>{{ item_detalles.notas }}</td>
+                                                <td>{{ item_detalles.unidades }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>    
+                                </td>
+                                <td>
+                                    <button type="button" class="button is-primary" (click)="ver_produccion(item)"><i class="fa fa-arrow-right" style="cursor:pointer"></i></button>
+                                </td>
                         </tr>
 
                         <tr *ngIf="resultadosBusqueda.length == 0 && busquedaActivada">
@@ -140,7 +143,7 @@
             </div>            
             <a class="button  is-primary" style="position:absolute; top:1em; right:1em;" (click)="showProduccion = !showProduccion"><span class="icon "><i class="fa fa-close"></i></span></a>
         </header>
-        <section class="section" style="padding: 1rem;">
+        <section class="modal-card-body">
             <div class="columns">
                 <div class="column is-3">
                     <div class="field">
@@ -178,7 +181,7 @@
                     </div>
                 </div>
                 <div class="column is-6">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped is-fullwidth">
                         <thead>
                             <th>Articulo</th>
                             <th>Unidades</th>
@@ -192,37 +195,66 @@
                     </table>
                 </div>
             </div>
+            <div class="columns" *ngIf="obj_produccion.tipo_venta == 2">
+                    <div class="column is-12">
+                        <div class="field">
+                            <label class="label">Descripción Mostrador</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="2"  [(ngModel)]="produccion.descripcion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             <div class="columns">
-                <div class="column is-12">
-                    <label class="checkbox">
-                        <input type="checkbox" class="is-medium">
-                        Diseño
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Impresión
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Preparación
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Instalación
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Entrega
-                    </label>
-                    <label class="checkbox">
-                        <input type="checkbox">
-                        Maquilas
-                    </label>
-                        
+                <div class="column is-12" S>
+                    <div class="bd-notification">
+                        <div class="field">
+                            <input class="is-checkradio is-block is-primary" id="produccion_diseno" type="checkbox" [(ngModel)]="produccion.diseno">
+                            <label for="produccion_diseno" style="font-size: 9pt;"><i class='fa fa-paint-brush'></i> DISEÑO</label>
+                        <!--</div>
+                        <div class="field">-->
+                            <input class="is-checkradio is-block is-primary " id="produccion_impresion_gf" type="checkbox" name="produccion_impresion_gf"  [(ngModel)]="produccion.impresion_gf">
+                            <label for="produccion_impresion_gf" style="font-size: 9pt;"><i class='fa fa-print'></i> IMPRESIÓN GRAN FORMATO</label>
+                            
+                            <input class="is-checkradio is-block is-primary " id="produccion_impresion_d" type="checkbox" name="produccion_impresion_d"  [(ngModel)]="produccion.impresion_d">
+                            <label for="produccion_impresion_d" style="font-size: 9pt;"><i class='fa fa-print'></i> IMPRESIÓN DIGITAL</label>
+                        <!--</div>
+                        <div class="field">-->
+                            <input class="is-checkradio is-block is-primary " id="produccion_preparacion" type="checkbox" name="produccion_preparacion" [(ngModel)]="produccion.preparacion">
+                            <label for="produccion_preparacion" style="font-size: 9pt;"><i class='fa fa-wrench'></i>PREPARACIÓN</label>
+                        <!--</div>
+                        <div class="field">-->
+                            <input class="is-checkradio is-block is-primary " id="produccion_instalacion" type="checkbox" name="produccion_instalacion" [(ngModel)]="produccion.instalacion">
+                            <label for="produccion_instalacion" style="font-size: 9pt;"><i class='fa fa-truck'></i>INSTALACIÓN</label>
+                        <!--</div>
+                        <div class="field">-->
+                            <input class="is-checkradio is-block is-primary " id="produccion_entrega" type="checkbox" name="produccion_entrega" [(ngModel)]="produccion.entrega">
+                            <label for="produccion_entrega" style="font-size: 9pt;"><i class='fa fa-shopping-bag'></i>ENTREGA</label>
+                        <!--</div>
+                        <div class="field">-->
+                            <input class="is-checkradio is-block is-primary " id="produccion_maquilas" type="checkbox" name="produccion_maquilas" [(ngModel)]="produccion.maquilas">
+                            <label for="produccion_maquilas" style="font-size: 9pt;"><i class='fa fa-address-card'></i>MAQUILAS</label>
+                        </div>
+                    </div>
                 </div>
             </div>        
         </section>
         <footer class="" style="position:relative; padding:1em;background: #FFF; border-top:0px solid #EEE; border-radius:0 0 0.8em 0.8em " >
+                <button class="button is-success" (click)= "agregar_produccion()">AGREGAR A PRODUCCIÓN</button>
         </footer>
     </div>
+</div>
+
+<div class="notification is-danger" style="position:fixed; left:1em;  bottom:1em;" *ngIf="mensajeError.mostrar">
+    <button class="delete" (click)="mensajeError.mostrar = false"></button>        
+    <b>Error:</b> {{ mensajeError.texto }}<br><br>
+    <p style="text-align:center" ><a  class="button is-danger is-inverted" (click)="ultimaPeticion(); mensajeError.mostrar = false"> <span class="icon"><i class="fa fa-refresh"></i></span> <span>Volver a intentar</span></a></p>        
+</div>
+
+<div class="notification is-success" style="position:fixed; left:1em;  bottom:1em; width: auto" *ngIf="mensajeExito.mostrar">       
+    <button class="delete" (click)="mensajeExito.mostrar = false"></button>
+    <p><span class="icon" style="margin-right: 0.5em;"><i class="fa fa-check-circle"></i></span> <span>{{ mensajeExito.texto }}</span></p>
+    <br>
+    <p style="text-align: center;"><small >Este mensaje desaparecerá en {{ mensajeExito.cuentaAtras }} segundos.</small></p>       
 </div>

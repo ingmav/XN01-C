@@ -17,15 +17,15 @@ import { Mensaje } from '../../mensaje';
 import { ProduccionService } from '../produccion.service';
 
 @Component({
-  selector: 'app-maquilas',
-  templateUrl: './maquilas.component.html',
-  styleUrls: ['./maquilas.component.css']
+  selector: 'app-impresion-digital',
+  templateUrl: './impresion-digital.component.html',
+  styleUrls: ['./impresion-digital.component.css']
 })
-export class MaquilasComponent implements OnInit {
+export class ImpresionDigitalComponent implements OnInit {
 
   cargando: boolean = false;
   showProduccion:boolean = false;
-  etapa_produccion: number = 7;
+  etapa_produccion: number = 3;
 
   obj_produccion:any = { 'cliente': {}};
 
@@ -332,5 +332,6 @@ export class MaquilasComponent implements OnInit {
     paginaAnteriorBusqueda(term:string):void {
         this.listarBusquedaProduccion(term,this.paginaActualBusqueda-1);
     }
+
 
 }

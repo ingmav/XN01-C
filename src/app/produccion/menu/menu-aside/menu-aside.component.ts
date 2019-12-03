@@ -27,12 +27,13 @@ export class MenuAsideComponent implements OnInit {
       {
         titulo: 'Procesos de Producción',
         modulos: [
-          { permiso: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH', icono: 'fa-check-square-o', titulo: 'Trabajos en Espera', url: '/produccion/lista' },
-          { permiso: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH', icono: 'fa-paint-brush', titulo: 'Diseño', url: '/produccion/diseno' },
-          { permiso: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH', icono: 'fa-print', titulo: 'Impresion', url: '/produccion/impresion' },
-          { permiso: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH', icono: 'fa-truck', titulo: 'Preparación, Instalación y Entrega', url: '/produccion/terminados' },
-          { permiso: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH', icono: 'fa-address-card', titulo: 'Maquilas', url: '/produccion/maquilas' },
-          { permiso: 'HC8qcdKns2j6CI0rox9s1EbzmsIDXhHH', icono: 'fa-list-alt', titulo: 'Tablero de Control', url: '/produccion/tablero' }
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-check-square-o', titulo: 'Trabajos en Espera', url: '/produccion/lista' },
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-paint-brush', titulo: 'Diseño', url: '/produccion/diseno' },
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-print', titulo: 'Impresion Gran Formato', url: '/produccion/impresion-gf' },
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-print', titulo: 'Impresion Digital', url: '/produccion/impresion-digital' },
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-truck', titulo: 'Preparación, Instalación y Entrega', url: '/produccion/terminados' },
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-address-card', titulo: 'Maquilas', url: '/produccion/maquilas' },
+          { permiso: '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA', icono: 'fa-list-alt', titulo: 'Tablero de Control', url: '/produccion/tablero' }
         ]
       }];
     

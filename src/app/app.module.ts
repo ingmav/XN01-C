@@ -7,7 +7,6 @@ import { HttpModule } from '@angular/http';
 
 import { ChartModule } from 'angular2-highcharts';
 //import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -78,7 +77,6 @@ export function highchartsFactory() {
     ProduccionModule,
         // Animations need to be imported in to your project to use the library
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot(),
     WildcardRoutingModule, // Este siempre debe ir al final para que no haga conflicto con otras rutas
 
   ],

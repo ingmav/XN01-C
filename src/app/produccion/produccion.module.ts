@@ -5,14 +5,16 @@ import { MenuModule } from './menu/menu.module';
 import { PaginacionModule } from '../paginacion/paginacion.module';
 import { AuthService } from '../auth.service';
 import { ProduccionService } from './produccion.service';
+import { FormsModule } from '@angular/forms';
 
 import { ProduccionRoutingModule } from './produccion-routing.module';
 import { ListaComponent } from './lista/lista.component';
 import { DisenoComponent } from './diseno/diseno.component';
-import { ImpresionComponent } from './impresion/impresion.component';
 import { TerminadoComponent } from './terminado/terminado.component';
 import { MaquilasComponent } from './maquilas/maquilas.component';
 import { TableroComponent } from './tablero/tablero.component';
+import { ImpresionGfComponent } from './impresion-gf/impresion-gf.component';
+import { ImpresionDigitalComponent } from './impresion-digital/impresion-digital.component';
 
 @NgModule({
   imports: [
@@ -20,9 +22,10 @@ import { TableroComponent } from './tablero/tablero.component';
     ProduccionRoutingModule,
     ReactiveFormsModule,
     PaginacionModule,
-    MenuModule
+    MenuModule,
+    FormsModule
   ],
-  declarations: [ListaComponent, DisenoComponent, ImpresionComponent, TerminadoComponent, MaquilasComponent, TableroComponent],
+  declarations: [ListaComponent, DisenoComponent, TerminadoComponent, MaquilasComponent, TableroComponent, ImpresionGfComponent, ImpresionDigitalComponent],
   providers: [ AuthService, ProduccionService ]
 })
 export class ProduccionModule { }

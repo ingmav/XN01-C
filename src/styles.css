@@ -211,3 +211,8 @@ input[type="checkbox"] .styled:checked + label::after {
   z-index: 100000 !important;
   border: 10px;
 }
+
+.notification
+{
+  z-index: 100000 !important;
+}
