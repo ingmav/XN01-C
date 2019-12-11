@@ -35,20 +35,9 @@ export class UsuariosService {
         jsonData.roles.map(item => {
           roles.push(""+item.id)
         })
-
         
-        
-        var temas_agregados:string[] = []
-        jsonData.usuario_tema.map(item => {
-          temas_agregados.push(item)
-        })
-
-        
-
         var usuario = jsonData as Usuario;
         usuario.roles = roles;
-
-        usuario.usuario_tema = temas_agregados;
 
         return usuario;
       }) as Observable<Usuario>;

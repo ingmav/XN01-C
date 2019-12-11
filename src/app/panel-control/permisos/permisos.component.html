@@ -12,7 +12,25 @@
                     <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:1em;" (click)="busquedaActivada=false;searchBox.value='';resultadosBusqueda=[]"><span class="icon "><i class="fa fa-close"></i></span></a>
                     <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:3.5em;" (click)="listarBusqueda(searchBox.value,1)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
                     <a class="button  is-primary" *ngIf="!busquedaActivada" style="position:absolute; top:1em; right:1em;" (click)="listar(1)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
-                    <div class="container is-fluid">
+                    
+                    <h1 class="title" *ngIf="!busquedaActivada">
+                        <span class="icon is-medium"><i class="fa fa-shield"></i></span> Permisos
+                    </h1>
+                    <h1 class="title" *ngIf="busquedaActivada">
+                        <span class="icon is-medium"><i class="fa fa-search"></i></span> Búsqueda 
+                    </h1>
+
+                    <div class="field has-addons  is-fluid">
+                        <div class="control is-expanded">
+                            <input class="input" type="text" placeholder="Buscar" #searchBox id="search-box" (keyup)="buscar(searchBox.value)">
+                        </div>
+                        <div class="control">
+                          <a class="button is-dark" routerLink="/panel-control/permisos/nuevo">
+                            <i class="fa fa-plus"></i> Nuevo
+                          </a>
+                        </div>
+                    </div>
+                    <!--<div class="container is-fluid">
                         
                         <h1 class="title" *ngIf="!busquedaActivada">
                             <span class="icon is-medium"><i class="fa fa-shield"></i></span> Permisos
@@ -21,16 +39,16 @@
                             <span class="icon is-medium"><i class="fa fa-search"></i></span> Búsqueda 
                         </h1>
                         <div class="control is-grouped">
-                        <p class="control is-expanded">
-                            <input class="input is-medium" type="text" placeholder="Buscar" #searchBox id="search-box" (keyup)="buscar(searchBox.value)">
-                        </p>
-                        <p class="control">
-                            <a class="button is-medium is-primary is-inverted " routerLink="/panel-control/permisos/nuevo">
-                            <span class="icon"><i class="fa fa-plus"></i></span><span>Nuevo</span>
-                            </a>
-                        </p>
+                            <p class="control is-expanded">
+                                <input class="input is-medium" type="text" placeholder="Buscar" #searchBox id="search-box" (keyup)="buscar(searchBox.value)">
+                            </p>
+                            <p class="control">
+                                <a class="button is-medium is-primary is-inverted " routerLink="/panel-control/permisos/nuevo">
+                                <span class="icon"><i class="fa fa-plus"></i></span><span>Nuevo</span>
+                                </a>
+                            </p>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </section>
             <div class="is-fullwidth has-text-centered" *ngIf="cargando">
@@ -40,7 +58,7 @@
                 <br>
             </div>
         
-            <table class="table" *ngIf="!cargando">
+            <table class="table  is-fullwidth" *ngIf="!cargando">
                 <thead>
                     <tr>
 					            	<th>ID</th>

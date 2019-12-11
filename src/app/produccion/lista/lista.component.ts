@@ -24,6 +24,7 @@ import { ProduccionService } from '../produccion.service';
 export class ListaComponent implements OnInit {
 
   cargando: boolean = false;
+  cargandoSync: boolean = false;
   showProduccion:boolean = false;
   obj_produccion:any = { 'cliente': {}};
   produccion:any = { 'ventas_id':0, 'diseno':false, 'impresion': false, 'preparacion':false, 'instalacion':false, 'entrega':false, 'maquilas':false, 'descripcion': '' }; 
@@ -263,6 +264,37 @@ export class ListaComponent implements OnInit {
 
         }
       );
+  }
+
+  actualizar_syncronizar():void{
+    this.cargandoSync =true;
+    this.produccionService.syncronizar().subscribe(
+      resultado => {
+        this.listar(1);
+        this.cargandoSync = false;
+        
+      },
+      error => {
+        this.cargandoSync = false;
+        this.cargando = false;
+        this.mensajeError.mostrar = true;
+        try {
+          let e = error.json();
+          if (error.status == 401 ){
+            this.mensajeError.texto = "No tiene permiso para hacer esta operación.";
+          }
+        } catch(e){
+          console.log("No se puede interpretar el error");
+          
+          if (error.status == 500 ){
+            this.mensajeError.texto = "500 (Error interno del servidor)";
+          } else {
+            this.mensajeError.texto = "No se puede interpretar el error. Por favor contacte con soporte técnico si esto vuelve a ocurrir.";
+          }            
+        }
+
+      }
+    );
   }
 
   buscar(term: string): void {

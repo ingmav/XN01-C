@@ -15,6 +15,23 @@
                     <div class="container is-fluid">
                         
                         <h1 class="title" *ngIf="!busquedaActivada">
+                            <span class="icon is-medium"><i class="fa fa-shield"></i></span> Roles
+                        </h1>
+                        <h1 class="title" *ngIf="busquedaActivada">
+                            <span class="icon is-medium"><i class="fa fa-search"></i></span> Búsqueda 
+                        </h1>
+    
+                        <div class="field has-addons  is-fluid">
+                            <div class="control is-expanded">
+                                <input class="input" type="text" placeholder="Buscar" #searchBox id="search-box" (keyup)="buscar(searchBox.value)">
+                            </div>
+                            <div class="control">
+                              <a class="button is-dark" routerLink="/panel-control/roles/nuevo">
+                                <i class="fa fa-plus"></i> Nuevo
+                              </a>
+                            </div>
+                        </div>
+                        <!--<h1 class="title" *ngIf="!busquedaActivada">
                             <span class="icon is-medium"><i class="fa fa-user"></i></span> Roles
                         </h1>
                         <h1 class="title" *ngIf="busquedaActivada">
@@ -29,7 +46,7 @@
                             <span class="icon"><i class="fa fa-plus"></i></span><span>Nuevo</span>
                             </a>
                         </p>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </section>
@@ -40,7 +57,7 @@
                 <br>
             </div>
             <div style="overflow:auto; display:block" [style.maxHeight.px]="tamano-320">
-                <table class="table" *ngIf="!cargando">
+                <table class="table  is-fullwidth" *ngIf="!cargando">
                     <thead>
                         <tr>
                         <th>Nombre</th>

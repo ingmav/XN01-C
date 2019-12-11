@@ -14,9 +14,9 @@ export class FormComponent implements OnInit {
   constructor() { }
 
   @Input() roles: Rol[];
-  @Input() temas: any[];
-  @Input() temasUsuario: any = [];
-  @Input() jurisdiccion: any[];
+  //@Input() temas: any[];
+  //@Input() temasUsuario: any = [];
+  //@Input() jurisdiccion: any[];
   @Input() usuario:FormGroup;
 
   @Input()  respuestaRequerida:boolean;
@@ -24,19 +24,19 @@ export class FormComponent implements OnInit {
   @Input()  usuarioInvalido:boolean;
   @Input()  cargando: boolean;
   @Input()  cargandoRoles: boolean;
-  @Input()  cargandoMedicos: boolean;
+  //@Input()  cargandoMedicos: boolean;
   @Input()  mostrarCambiarPassword:boolean;
 
   @Output() onEnviar = new EventEmitter<void>();
   @Output() onRegresar = new EventEmitter<void>();
   @Output() onToggleCambiarPassword = new EventEmitter<void>();
   @Output() onCargarRoles = new EventEmitter<void>();
-  @Output() onCargarTemas = new EventEmitter<void>();
-  @Output() onCargarJurisdicciones = new EventEmitter<void>();
+  //@Output() onCargarTemas = new EventEmitter<void>();
+  //@Output() onCargarJurisdicciones = new EventEmitter<void>();
 
   // # Esto es solo para listar las unidades medicas que ya estan relacionadas
   // al usuario, en el modulo de edicion
-  @Input() temasAgregados: any[];
+  //@Input() temasAgregados: any[];
 
   tab:number = 1;
 
@@ -44,7 +44,7 @@ export class FormComponent implements OnInit {
    * Método que inicializa y obtiene valores para el funcionamiento del componente.
    */
   ngOnInit() {
-    this.temasAgregados = this.temasUsuario;
+    //this.temasAgregados = this.temasUsuario;
   }
 
   enviar() {
@@ -53,13 +53,13 @@ export class FormComponent implements OnInit {
   cargarRoles(){
      this.onCargarRoles.emit();
   }
-  cargarTemas(){
+  /*cargarTemas(){
     this.onCargarTemas.emit();
  }
 
  cargarJurisdicciones(){
   this.onCargarJurisdicciones.emit();
-}
+}*/
 
   regresar() {
     this.onRegresar.emit();
@@ -71,7 +71,7 @@ export class FormComponent implements OnInit {
 
 
 
-  agregarTema(tema){
+  /*agregarTema(tema){
     let ban:number = 0;
     for(var i in this.temas){
       
@@ -101,7 +101,7 @@ export class FormComponent implements OnInit {
       this.temasAgregados.splice(index, 1);
       this.usuario.controls['temas'].setValue(this.temasAgregados); 
     }
-  }
+  }*/
 
   
 }

@@ -26,25 +26,9 @@ export class HubComponent implements OnInit {
       ]
     },
     {
-      title: 'Seleccion', routerLink: '/produccion', icono: 'assets/seleccion.svg',
-      permisos: [
-        '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA'// Ver usuarios
-      ]
-    },
-    {
-      title: 'Produccion', routerLink: '/produccion', icono: 'assets/produccion2.svg',
-      permisos: [
-        '5kiSdt98HBK4FYWqz3wuFXSUPj9AR7PA'// Ver usuarios
-        //Diseño
-        //Impresion
-        //Preparacion e Instalación o Entrega
-        //Maquilas
-      ]
-    },
-    {
       title: 'Tablero General', routerLink: '/produccion', icono: 'assets/hub-tablero.svg',
       permisos: [
-        'KaO6yvc7zbPGwlsViUtNZg94Bk9E0ThZ'// Ver usuarios
+        'thbUQ8aaGRZL8kOVDRKMR45hDbxvJWsE'// Ver usuarios
       ]
     },
     {

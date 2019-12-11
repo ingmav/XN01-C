@@ -15,6 +15,7 @@ import { MaquilasComponent } from './maquilas/maquilas.component';
 import { TableroComponent } from './tablero/tablero.component';
 import { ImpresionGfComponent } from './impresion-gf/impresion-gf.component';
 import { ImpresionDigitalComponent } from './impresion-digital/impresion-digital.component';
+import { PanelInicialComponent } from './panel-inicial/panel-inicial.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { ImpresionDigitalComponent } from './impresion-digital/impresion-digital
     MenuModule,
     FormsModule
   ],
-  declarations: [ListaComponent, DisenoComponent, TerminadoComponent, MaquilasComponent, TableroComponent, ImpresionGfComponent, ImpresionDigitalComponent],
+  declarations: [ListaComponent, DisenoComponent, TerminadoComponent, MaquilasComponent, TableroComponent, ImpresionGfComponent, ImpresionDigitalComponent, PanelInicialComponent],
   providers: [ AuthService, ProduccionService ]
 })
 export class ProduccionModule { }

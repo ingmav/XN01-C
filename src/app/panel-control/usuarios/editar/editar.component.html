@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </section>
-            <div class="is-fullwidth has-text-centered" *ngIf="!datosCargados">
+            <div class="is-fullwidth has-text-centered" *ngIf="datosCargados">
                 <br>
                 <span class="tag is-primary is-large "><span class="icon"><i class="fa fa-refresh fa-spin"></i></span> &nbsp;<span>Cargando...</span></span>
             </div>
@@ -28,9 +28,6 @@
                 [mostrarCambiarPassword]="true"
                 [usuario]="usuario"             
                 [roles]="roles" 
-                [jurisdiccion]="jurisdiccion" 
-                [temas]="temas"  
-                [temasAgregados] = "temasAgregados"
                 [usuarioRepetido]="usuarioRepetido"
                 [usuarioInvalido]="usuarioInvalido"
                 [respuestaRequerida]="respuestaRequerida"
@@ -42,7 +39,7 @@
                 (onToggleCambiarPassword)="toggleCambiarPassword()"
                 (onCargarRoles)="cargarRoles()"
                 
-                (onCargarJurisdicciones)="cargarJurisdicciones()"
+                
                 
             ></panel-control-usuarios-form>
             </section>

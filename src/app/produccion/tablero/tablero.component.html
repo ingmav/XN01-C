@@ -85,7 +85,7 @@
                             <td *ngIf="item.maquilas == 1 && item.estatus_maquilas==1"><button type="button" class="button is-success" (click)="cambiaEstatus(7, 1, item.id)"><i class="fa fa-check"></i></button></td>
                             <td *ngIf="item.maquilas == 1 && item.estatus_maquilas!=1"><button type="button" class="button is-danger" (click)="cambiaEstatus(7, 0, item.id)"><i class="fa fa-close"></i></button></td>
 
-                            <td style="text-align: center;" *ngIf="((item.diseno == 1 && item.estatus_diseno == 1) || item.diseno == 0) && ((item.impresion_gf == 1 && item.estatus_impresion_gf == 1) || item.impresion_gf == 1) && ((item.impresion_digital == 1 && item.estatus_impresion_digital == 1) || item.impresion_digital == 0) && ((item.preparacion == 1 && item.estatus_preparacion == 1) || item.preparacion == 0) && ((item.instalacion == 1 && item.estatus_instalacion == 1) || item.instalacion == 0) && ((item.entrega == 1 && item.estatus_entrega == 1) || item.entrega == 0) && ((item.maquilas == 1 && item.estatus_maquilas == 1) || item.maquilas == 0)">
+                            <td style="text-align: center;" *ngIf="((item.diseno == 1 && item.estatus_diseno == 1) || item.diseno == 0) && ((item.impresion_gf == 1 && item.estatus_impresion_gf == 1) || item.impresion_gf == 0) && ((item.impresion_digital == 1 && item.estatus_impresion_digital == 1) || item.impresion_digital == 0) && ((item.preparacion == 1 && item.estatus_preparacion == 1) || item.preparacion == 0) && ((item.instalacion == 1 && item.estatus_instalacion == 1) || item.instalacion == 0) && ((item.entrega == 1 && item.estatus_entrega == 1) || item.entrega == 0) && ((item.maquilas == 1 && item.estatus_maquilas == 1) || item.maquilas == 0)">
                                 <button type="button" class="button is-info" (click)="finalizarTrabajo(item.id)"><i class="fa fa-check"></i></button>
                             </td>
                             
@@ -127,6 +127,9 @@
                             <td *ngIf="item.maquilas == 1 && item.estatus_maquilas==1"><button type="button" class="button is-success" (click)="cambiaEstatus(7, 1, item.id)"><i class="fa fa-check"></i></button></td>
                             <td *ngIf="item.maquilas == 1 && item.estatus_maquilas!=1"><button type="button" class="button is-danger" (click)="cambiaEstatus(7, 0, item.id)"><i class="fa fa-close"></i></button></td>
 
+                            <td style="text-align: center;" *ngIf="((item.diseno == 1 && item.estatus_diseno == 1) || item.diseno == 0) && ((item.impresion_gf == 1 && item.estatus_impresion_gf == 1) || item.impresion_gf == 0) && ((item.impresion_digital == 1 && item.estatus_impresion_digital == 1) || item.impresion_digital == 0) && ((item.preparacion == 1 && item.estatus_preparacion == 1) || item.preparacion == 0) && ((item.instalacion == 1 && item.estatus_instalacion == 1) || item.instalacion == 0) && ((item.entrega == 1 && item.estatus_entrega == 1) || item.entrega == 0) && ((item.maquilas == 1 && item.estatus_maquilas == 1) || item.maquilas == 0)">
+                                <button type="button" class="button is-info" (click)="finalizarTrabajo(item.id)"><i class="fa fa-check"></i></button>
+                            </td>
                         </tr>
 
                         <tr *ngIf="resultadosBusqueda.length == 0 && busquedaActivada">

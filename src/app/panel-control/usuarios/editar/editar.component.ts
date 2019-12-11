@@ -80,22 +80,23 @@ export class EditarComponent implements OnInit {
       confirmarPassword: [{value: '', disabled: true}, [Validators.required]],
       avatar: ['avatar-circled-user-male'],
       roles: [[1],[Validators.required]],
-      temas: [[]],
-      id_jurisdiccion: ['-1'],
-      pregunta_secreta: [''],
-      respuesta: ['']
+      //temas: [[]],
+      //id_jurisdiccion: ['-1'],
+      //pregunta_secreta: [''],
+      //respuesta: ['']
     });
 
     this.route.params.subscribe(params => {
       this.id = params['id']; // Se puede agregar un simbolo + antes de la variable params para volverlo number
-      //this.cargarDatos();
+      this.cargarDatos();
     });
 
     this.cargarRoles();
-    this.cargarTemas();
-    this.cargarJurisdicciones();
+    //this.cargarTemas();
+    //this.cargarJurisdicciones();
+    //this.cargarDatos();
     
-    this.cargandoCatalogos = false;
+    //this.cargandoCatalogos = false;
   }
   
 
@@ -182,7 +183,7 @@ export class EditarComponent implements OnInit {
   }
 
 
-cargarJurisdicciones(){
+/*cargarJurisdicciones(){
   this.cargandoJurisdicciones = true;
   this.usuariosService.carga_catalogos().subscribe(
     resultado => {
@@ -215,24 +216,24 @@ cargarTemas(){
     }
 
   );
-}
+}*/
 
   cargarDatos() {
     this.cargando = true; 
-    
+    this.datosCargados = true;
     this.usuariosService.ver(this.id).subscribe(
         usuario => {
-          this.datosCargados = true;
-          
-          this.usuario.patchValue(usuario);
+          this.datosCargados = false;
           
           console.log(usuario);
-          this.temasAgregados = usuario.usuario_tema;
+          this.usuario.patchValue(usuario);
+          
+          /*this.temasAgregados = usuario.usuario_tema;
           
           for(var i in this.temasAgregados){
                 //this.temasAgragadas.push(this.temasAgregados[i].id);
                 this.usuario.controls['temas'].setValue(this.temasAgregados);  
-          }
+          }*/
           this.cargando = false; 
         
         },

@@ -65,7 +65,6 @@ export class NuevoComponent implements OnInit {
     this.title.setTitle("Nuevo usuario / Panel de control");
     
     this.cargarRoles();
-    this.cargarCatalogos();
     
 
     this.usuario = this.fb.group({
@@ -76,11 +75,7 @@ export class NuevoComponent implements OnInit {
       confirmarPassword: ['', [Validators.required]],
       avatar: ['avatar-circled-user-male'],
       roles: [[],[Validators.required]],
-      id_jurisdiccion: [[],[Validators.required]],
-      temas: [[]],
-      pregunta_secreta: [''],
-      respuesta: ['']
-
+    
     });
     
     
@@ -151,20 +146,7 @@ export class NuevoComponent implements OnInit {
         }
       );
   }
-  cargarCatalogos(){
-    this.cargandoCatalogos = true;
-    this.usuariosService.carga_catalogos().subscribe(
-      resultado => {
-        this.temas = resultado.tema;
-        this.jurisdiccion = resultado.jurisdiccion;
-        console.log(this.jurisdiccion);
-        this.cargandoCatalogos = false;
-      error => {
-        this.cargandoCatalogos = false;
-      }
-    }
-  );
-}
+
   
   
   cargarRoles() {
