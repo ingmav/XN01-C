@@ -64,7 +64,7 @@ export class ProduccionService {
   //
 
   syncronizar():Observable<any>{
-    return this.http.get("http://localhost/produccion_nexprint/sincronizacion/sincronizacion.php",{  })
+    return this.http.get("http://192.168.1.129/produccion_nexprint/sincronizacion/sincronizacion.php",{  })
     
     .map( (response: Response) => response.json().data);
   }
