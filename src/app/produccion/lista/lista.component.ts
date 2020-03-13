@@ -27,6 +27,7 @@ export class ListaComponent implements OnInit {
   cargandoSync: boolean = false;
   showProduccion:boolean = false;
   obj_produccion:any = { 'cliente': {}};
+  tabs:number = 1;
   produccion:any = { 'ventas_id':0, 'diseno':false, 'impresion': false, 'preparacion':false, 'instalacion':false, 'entrega':false, 'maquilas':false, 'descripcion': '' }; 
   
   // # SECCION: Esta sección es para mostrar mensajes
@@ -295,6 +296,10 @@ export class ListaComponent implements OnInit {
 
       }
     );
+  }
+
+  pestana(valor:number): void{
+    this.tabs = valor;
   }
 
   buscar(term: string): void {

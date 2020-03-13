@@ -1,0 +1,613 @@
+<menu-produccion></menu-produccion>
+<div style="height:50px;"></div>
+<div class="contenedor columns " style="height:100%; ">
+    <div class="column" style="padding:2em; overflow:auto;">
+        <div class="is-fullwidth has-text-centered" *ngIf="cargando">
+            <br>
+            <span class="tag is-primary is-large "><span class="icon"><i class="fa fa-refresh fa-spin"></i></span> &nbsp;<span>Cargando...</span></span>
+            <br>
+            <br>
+        </div>
+        <div style="overflow:auto; display:block">
+            <!--<button type="button" class="btn" (click)="listarAgenda(); catalogos()">Cargar</button>-->
+            <table class="table is-fullwidth is-bordered is-striped" *ngIf="!cargando" style="font-size: 10pt;">
+                <thead>
+                    <tr>
+                        <th>DATOS</th>
+                        <th *ngFor="let item of listaDias; let i=index">{{ item.fecha }} {{ dias[item.dia] }}</th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of lista; let i=index">
+                        <td>
+                            <table class="table is-fullwidth is-bordered is-striped">
+                                <tr>
+                                    <td rowspan="2"><button type="button" class="button is-success is-large" (click)="agendarActividad(item)"><i class="fa fa-calendar"></i></button></td>
+                                    <td>{{ item.ventas.folio }}</td>
+                                    <td>{{ item.ventas.fecha }}</td>
+                                    <td>{{ item.ventas.hora }}</td>
+                                    <td>
+                                        <!--<button type="button" class="button is-success is-small" (click)="agendarActividad(item)"><i class="fa fa-calendar"></i></button>-->
+                                        <div class="field has-addons">
+                                            
+                                            <p class="control">
+                                              <button type="button" class="button is-small" *ngIf="item.diseno == 1" [ngClass]="{'is-success': (item.estatus_diseno == 1)}">
+                                                    <span class="icon is-small">
+                                                        <i class="fa fa-paint-brush"></i>
+                                                    </span>  
+                                              </button>
+                                            </p>
+                                            <p class="control">
+                                                <button type="button" class="button is-small" *ngIf="item.impresion_gf == 1" [ngClass]="{'is-success': (item.estatus_impresion_gf == 1)}">
+                                                      <span class="icon is-small">
+                                                          <i class="fa fa-print"></i>
+                                                      </span>  
+                                                </button>
+                                            </p>
+                                            <p class="control">
+                                                <button type="button" class="button is-small" *ngIf="item.impresion_digital == 1" [ngClass]="{'is-success': (item.estatus_impresion_digital == 1)}">
+                                                      <span class="icon is-small">
+                                                          <i class="fa fa-file-o"></i>
+                                                      </span>  
+                                                </button>
+                                            </p>
+                                            <p class="control">
+                                                <button type="button" class="button is-small" *ngIf="item.preparacion == 1" [ngClass]="{'is-success': (item.estatus_preparacion == 1)}">
+                                                      <span class="icon is-small">
+                                                          <i class="fa fa-wrench"></i>
+                                                      </span>  
+                                                </button>
+                                            </p>
+                                            <p class="control">
+                                                <button type="button" class="button is-small" *ngIf="item.instalacion == 1" [ngClass]="{'is-success': (item.estatus_instalacion == 1)}">
+                                                      <span class="icon is-small">
+                                                          <i class="fa fa-truck"></i>
+                                                      </span>  
+                                                </button>
+                                            </p>
+                                            <p class="control">
+                                                <button type="button" class="button is-small" *ngIf="item.entrega == 1" [ngClass]="{'is-success': (item.estatus_entrega == 1)}">
+                                                      <span class="icon is-small">
+                                                          <i class="fa fa-shopping-bag"></i>
+                                                      </span>  
+                                                </button>
+                                            </p>
+                                            <p class="control">
+                                                <button type="button" class="button is-small" *ngIf="item.maquilas == 1" [ngClass]="{'is-success': (item.estatus_maquilas == 1)}">
+                                                      <span class="icon is-small">
+                                                          <i class="fa fa-address-card"></i>
+                                                      </span>  
+                                                </button>
+                                            </p>
+                                        </div>
+
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td *ngIf="item.ventas.cliente.nombre != ''" colspan="7">{{ item.ventas.cliente.nombre }} - {{ item.ventas.descripcion }}</td>
+                                    <!--<td *ngIf="item.ventas.descripcion != ''" colspan="4">{{ item.ventas.descripcion }}</td>-->
+                                   
+                                    
+                                </tr>
+                            </table>
+                           
+                        </td>
+                        <th *ngFor="let item_dias of listaDias; let i=index">
+                            <table class="table is-fullwidth is-bordered is-striped">
+                                <tr>
+                                    <td colspan="3" class='centrar'>{{ dias[item_dias.dia] }}</td>
+                                </tr>
+                                <tr *ngFor="let item_agenda of item.produccion_agenda; let i=index">
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 1" class="centrar is-success btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-paint-brush"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 1" class="is-success">DISEÑO</td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 1" class="is-success">{{ item_agenda.trabajador.abreviatura }}</td>
+                                    
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 2" class="centrar is-info btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-print"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 2" class="is-info">IMP. GF</td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 2" class="is-info">{{ item_agenda.equipo.abreviatura }}</td>
+                                    
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 3" class="centrar is-info btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-file-o"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 3" class="is-info">IMP. DIG</td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 3" class="is-info">{{ item_agenda.equipo.abreviatura }}</td>
+                                    
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 4" class="centrar is-info btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-wrench"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 4" class="is-info">PREPARACIÓN</td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 4" class="is-info">{{ item_agenda.trabajador.abreviatura }}</td>
+
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 5" class="centrar is-info btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-truck"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 5" class="is-info">INSTALACIÓN</td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 5" class="is-info">{{ item_agenda.trabajador.abreviatura }}</td>
+
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 6" class="centrar is-info btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-shopping-bag"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 6" class="is-info" colspan="2">ENTREGA</td>
+                                    <!--td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 6" class="is-info">{{ item_agenda.trabajador.abreviatura }}</td-->
+
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 7" class="centrar is-info btn-eliminar" (click) = "eliminar(item_agenda.id)"><i class="fa fa-address-card"></i></td>
+                                    <td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 7" class="is-info" colspan="2">MAQUILAS</td>
+                                    <!--td *ngIf="(item_agenda.fecha == item_dias.fecha) && item_agenda.tipo_produccion == 7" class="is-info">{{ item_agenda.trabajador.abreviatura }}</td-->
+                                </tr>
+                            </table>
+                           
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+    
+</div>      
+
+<div id="modal-agenda" class="modal is-active" [ngClass]="{'is-active': showAgendar}">
+    <div class="modal-background"  (click)="showAgendar = !showAgendar"></div>
+    <div class="modal-card" style="width:60%; height: auto;">
+      <header class="modal-card-head" style="background-color: #00d1b2" >
+        <div class="container is-fluid"  style="width:100%;">
+            <h1 class="title" style="color:#FFF;">
+              <span class="icon is-medium"><i class="fa fa-user"></i></span> Agendar Actividad
+            </h1>
+        </div>            
+        <a class="button  is-primary" style="position:absolute; top:1em; right:1em;" (click)="showAgendar = !showAgendar"><span class="icon "><i class="fa fa-close"></i></span></a>
+      </header>
+      <section class="modal-card-body" style="padding: 10px; overflow: hidden;">
+        <div class="tabs">
+            <ul>
+              <li [ngClass]="{'is-active': (tab_pestana == 1)}">
+                <a (click)="pestana(1)">
+                  <span class="icon is-small"><i class="fa fa-file" aria-hidden="true"></i></span>
+                  <span>Datos</span>
+                </a>
+              </li>
+              <li [ngClass]="{'is-active': (tab_pestana == 2)}">
+                <a (click)="pestana(2)">
+                  <span class="icon is-small"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                  <span>Calendarizar</span>
+                </a>
+              </li>
+              <li [ngClass]="{'is-active': (tab_pestana == 3)}">
+                <a (click)="pestana(3)">
+                  <span class="icon is-small"><i class="fa fa-file" aria-hidden="true"></i></span>
+                  <span>Detalles</span>
+                </a>
+              </li>
+            </ul>
+        </div>
+        <div *ngIf="tab_pestana == 1">
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Folio</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Folio" value="{{ item_seleccionado.ventas.folio }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Fecha</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Fecha" value="{{ item_seleccionado.ventas.fecha }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Hora</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Hora" value="{{ item_seleccionado.ventas.hora }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Cliente</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Cliente" value="{{ item_seleccionado.ventas.cliente.nombre }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Descripción</label>
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Descripcion" value="{{ item_seleccionado.ventas.descripcion }}" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div *ngIf="tab_pestana == 2">    
+            <div *ngIf="item_seleccionado.diseno == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_diseno == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-paint-brush"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-4">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_diseno">
+                            </div>   
+                        </div>    
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Diseñador</label> 
+                            <div class="control">
+                                <select class="select" [(ngModel)]="datos_agenda.dato_diseno">
+                                    <option *ngFor="let item of catalogo_trabajador[1]; let i=index" value="{{ item.id }}" >{{ item.descripcion }}</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(1)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(1)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns" class="column" *ngIf="item_seleccionado.estatus_diseno == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                               <p><i class="fa fa-paint-brush"></i> Diseño Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+            <div *ngIf="item_seleccionado.impresion_gf == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_impresion_gf == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-print"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-4">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_impresion_gf">
+                            </div>   
+                        </div>    
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Impresora GF</label> 
+                            <div class="control">
+                                <select class="select" [(ngModel)]="datos_agenda.dato_impresion_gf">
+                                    <option *ngFor="let item of catalogo_equipo[2]; let i=index" value="{{ item.id }}" >{{ item.descripcion }}</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(2)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(2)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns" class="column" *ngIf="item_seleccionado.estatus_impresion_gf == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                              <p><i class="fa fa-print"></i> Impresión Gran Formato Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+            <div *ngIf="item_seleccionado.impresion_digital == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_impresion_digital == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-file"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-4">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_impresion_digital">
+                            </div>   
+                        </div>    
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Impresora Digital</label> 
+                            <div class="control">
+                                <select class="select" [(ngModel)]="datos_agenda.dato_impresion_digital">
+                                    <option *ngFor="let item of catalogo_equipo[3]; let i=index" value="{{ item.id }}" >{{ item.descripcion }}</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>
+                    
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(3)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(3)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns"  *ngIf="item_seleccionado.estatus_impresion_digital == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                              <p><i class="fa fa-file"></i> Impresión Digital Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+            <div *ngIf="item_seleccionado.preparacion == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_preparacion == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-wrench"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-4">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_preparacion">
+                            </div>   
+                        </div>    
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Instalador</label> 
+                            <div class="control">
+                                <select class="select" [(ngModel)]="datos_agenda.dato_preparacion">
+                                    <option *ngFor="let item of catalogo_trabajador[4]; let i=index" value="{{ item.id }}" >{{ item.descripcion }}</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(4)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(4)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns" class="column" *ngIf="item_seleccionado.estatus_preparacion == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                              <p><i class="fa fa-wrench"></i> Preparacion Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+            <div *ngIf="item_seleccionado.instalacion == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_instalacion == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-truck"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-4">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_instalacion">
+                            </div>   
+                        </div>    
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Instalador</label> 
+                            <div class="control">
+                                <select class="select" [(ngModel)]="datos_agenda.dato_instalacion">
+                                    <option *ngFor="let item of catalogo_trabajador[5]; let i=index" value="{{ item.id }}" >{{ item.descripcion }}</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(5)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(5)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns" class="column" *ngIf="item_seleccionado.estatus_instalacion == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                              <p><i class="fa fa-truck"></i> Entrega Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+            <div *ngIf="item_seleccionado.entrega == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_entrega == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-shopping-bag"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-7">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_entrega">
+                            </div>   
+                        </div>    
+                    </div>
+                    
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(6)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(6)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns" class="column" *ngIf="item_seleccionado.estatus_entrega == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                              <p><i class="fa fa-shopping-bag"></i> Entrega Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+            <div *ngIf="item_seleccionado.maquilas == 1">
+                <div class="columns" *ngIf="item_seleccionado.estatus_maquilas == 0">
+                    <div class="column is-2">
+                        <div class="field">
+                            <button type="button" class="button is-large is-primary is-light" style="margin: 10px;"><i class="fa fa-address-card"></i></button>
+                        </div>    
+                    </div>
+                    <div class="column is-7">
+                        <div class="field">
+                            <label class="label">Fecha</label> 
+                            <div class="control">
+                                <input class="input" type="date" [(ngModel)]="datos_agenda.fecha_maquila">
+                            </div>   
+                        </div>    
+                    </div>
+                    <!--<div class="column is-3">
+                        <div class="field">
+                            <label class="label">Trabajador</label> 
+                            <div class="control">
+                                <select class="select" [(ngModel)]="datos_agenda.dato_maquila">
+                                    <option *ngFor="let item of catalogo_trabajador[7]; let i=index" value="{{ item.id }}" >{{ item.descripcion }}</option>
+                                </select>
+                            </div>    
+                        </div>
+                    </div>-->
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Finalizar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-success" (click)="finalizar_actividad(7)"><i class="fa fa-check"></i></button>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="column is-1">
+                        <div class="field">
+                            <label class="label">Guardar</label> 
+                            <div class="control">
+                                <button type="button" class="button is-info" (click) = "guardar_agenda(7)"><i class="fa fa-save"></i></button>
+                            </div>
+                        </div>
+                    </div>        
+                </div> 
+                <div class="columns" class="column" *ngIf="item_seleccionado.estatus_maquilas == 1">
+                    <div class="column">
+                        <article class="message is-success">
+                            <div class="message-header">
+                              <p><i class="fa fa-address-card"></i> Maquilas Realizado</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>   
+            </div>
+
+        </div>
+        
+        <div *ngIf="tab_pestana == 3">
+            <!--detalles-->
+            <table class="table is-fullwidth">
+                <thead>
+                    <th>Clave</th>
+                    <th>Descripcion</th>
+                    <th>Unidades</th>
+                    <th>Precio</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item_detalles of item_seleccionado.ventas.ventas_detalles; let i=index">
+                        <td>{{ item_detalles.clave_articulo }}</td>
+                        <td>{{ item_detalles.articulo.nombre }}</td>
+                        <td>{{ item_detalles.unidades }}</td>
+                        <td>{{ item_detalles.precio_total_neto }}</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+      </section>
+      <!--<footer class="" style="position:relative; padding:1em;background: #FFF; border-top:1px solid #EEE; border-radius:0 0 0.8em 0.8em " >
+        <button type="button" class="button is-success">Guardar Agenda</button>
+      </footer>-->
+    </div>
+  </div>

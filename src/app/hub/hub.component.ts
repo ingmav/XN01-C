@@ -26,7 +26,20 @@ export class HubComponent implements OnInit {
       ]
     },
     {
+      title: 'Call Center', routerLink: '/callcenter', icono: 'assets/hub-callcenter.svg',
+      permisos: [
+        'thbUQ8aaGRZL8kOVDRKMR45hDbxvJWsE'// Ver usuarios
+      ]
+    },
+    {
       title: 'Tablero General', routerLink: '/produccion', icono: 'assets/hub-tablero.svg',
+      permisos: [
+        'thbUQ8aaGRZL8kOVDRKMR45hDbxvJWsE'// Ver usuarios
+      ]
+    }
+    ,
+    {
+      title: 'Agenda de Producción', routerLink: '/agenda', icono: 'assets/hub-agenda.svg',
       permisos: [
         'thbUQ8aaGRZL8kOVDRKMR45hDbxvJWsE'// Ver usuarios
       ]

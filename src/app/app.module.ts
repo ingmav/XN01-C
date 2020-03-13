@@ -35,6 +35,9 @@ import { SyncModule     } from './panel-control/sync/sync.module';
 import { OpcionesAvanzadasModule  } from './panel-control/opciones-avanzadas/opciones-avanzadas.module';
 
 import { ProduccionModule  } from './produccion/produccion.module';
+import { AgendaModule  } from './agenda/agenda.module';
+
+import { CallcenterModule  } from './callcenter/callcenter.module';
 
 
 export function highchartsFactory() {
@@ -75,6 +78,8 @@ export function highchartsFactory() {
     UsuariosModule,
 
     ProduccionModule,
+    AgendaModule,
+    CallcenterModule,
         // Animations need to be imported in to your project to use the library
     BrowserAnimationsModule,
     WildcardRoutingModule, // Este siempre debe ir al final para que no haga conflicto con otras rutas

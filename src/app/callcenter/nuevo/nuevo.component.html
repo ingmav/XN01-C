@@ -1,0 +1,263 @@
+
+<div *ngIf="Funcion == 1">
+  <div class="contenedor columns " style="height:100%; ">
+      <div class="column" style="padding:2em; overflow:auto;">
+          <div style="background: #FFF; border-radius: 1em; overflow: hidden;">
+              <section class="hero" [ngClass] = " {'is-dark': busquedaActivada, 'is-primary': !busquedaActivada } " >
+                  
+                  <div class="hero-body" style="position:relative;">
+                      <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:1em;" (click)="busquedaActivada=false;searchBox.value='';resultadosBusqueda=[]"><span class="icon "><i class="fa fa-close"></i></span></a>
+                      <a class="button  is-dark" *ngIf="busquedaActivada" style="position:absolute; top:1em; right:3.5em;" (click)="listarBusqueda(searchBox.value,1)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
+                      <a class="button  is-primary" *ngIf="!busquedaActivada" style="position:absolute; top:1em; right:1em;" (click)="listar(1)"><span class="icon "><i class="fa fa-refresh"></i></span></a>
+                      <div class="container is-fluid">
+                          
+                          <h1 class="title" *ngIf="!busquedaActivada">
+                              <span class="icon is-medium"><i class="fa fa-check-square-o"></i></span> Cotizador
+                          </h1>
+                          <h1 class="title" *ngIf="busquedaActivada">
+                              <span class="icon is-medium"><i class="fa fa-search"></i></span> Búsqueda 
+                          </h1>
+                          <div class="columns">
+                              <div class="column">
+                                  <label class="label" style="color: #FFF">Productos</label>
+                                  <input class="input is-medium" type="text" placeholder="Buscar" #searchBox (keyup)="buscar(searchBox.value)">
+                              </div>
+                              <div class="column is-2">
+                                <button type='button' class="button" (click)="nuevo()">Nuevo</button>
+                                <button type='button' class="button" (click)="verificarPrecios()">Verificar</button>
+                            </div>
+                          </div>
+                          
+                      </div>
+                  </div>
+              </section>
+              <div class="is-fullwidth has-text-centered" *ngIf="cargando">
+                  <br>
+                  <span class="tag is-primary is-large "><span class="icon"><i class="fa fa-refresh fa-spin"></i></span> &nbsp;<span>Cargando...</span></span>
+                  <br>
+                  <br>
+              </div>
+              <div style="overflow:auto; display:block">
+                  <table class="table is-fullwidth" *ngIf="!cargando">
+                          <thead>
+                              <tr>
+                                  <th>TIPO</th>
+                                  <th>MATERIAL Y CALIDAD</th>
+                                  <th>CANTIDADES</th>
+                                  <th>EXTRAS</th>
+                                  <th>ACCIONES</th>
+                              </tr>                            
+                          </thead>
+                      <tbody  >
+                          <tr *ngFor="let item of lista; let i=index">
+                              <td>{{ ListaTipo[item.tipo].desc }}</td>
+                              <td>{{ ListaTipoLona[item.tipoLona].desc }} - {{ ListaCalidad[item.calidad].desc }} {{ item.notasCalidad }}<br>
+                                Superficie: {{ ListaSuperficie[item.superficie].desc }} 
+                                <div *ngIf = "item.notasSuperficie!=''">Notas Superficie: {{ item.notasSuperficie }}</div>
+                              </td>
+                              <td>
+                                Cantidad: {{ item.cantidad }} de {{ item.base }} MTRS. BASE * {{ item.altura}} MTRS. ALTURA
+                              </td>
+                              <td>
+                                Instalación: {{ Preguntas[item.reqInstalacion]}}  <div *ngIf = "item.lugarInstalacion!=0">( {{ Lugar[item.lugarInstalacion]}} )</div><BR>
+                                  {{ Requerimiento[item.requerimiento] }}
+                                  <div *ngIf = "item.notasInstalacion!=''">{{ item.notasInstalacion }}</div>
+                              </td>
+                              <td>
+                                <button type="button" class="button is-info" (click)="editar(i)"><i class="fa fa-edit"></i></button>
+                                <button type="button" class="button is-info" (click)="eliminar(i)"><i class="fa fa-close"></i></button>
+                              </td>
+                          </tr>
+                          <tr *ngIf="lista.length == 0">
+                              <td colspan="3" style="vertical-align: middle;cursor:pointer; color:#888;">Esta lista está vacía.</td>                    
+                          </tr>
+                              
+                          
+                      </tbody>
+                      
+                  </table>
+              </div>
+              <!-- Paginación para la lista  -->
+              
+          </div>
+      </div>
+  </div>  
+</div>
+<div class="columns is-mobile" *ngIf="Funcion == 2">
+  <div class="column is-three-fifths is-offset-one-fifth">
+    <div class="columns">
+      <div class="column" style="background-color: #e21800; color:white; font-size: 15pt; padding:30px; font-weight: bold;">
+        COTIZADOR 
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column">
+        <div class="select">
+          <select class="select"  [(ngModel)]="Tipo" (change) = "ver_nodos()">
+            <option *ngFor="let item of ListaTipo; let i=index" value="{{ item.id }}">{{ item.desc }}</option>
+            
+          </select>
+        </div> 
+      </div>
+    </div>
+    
+    <div *ngIf="Nodo == 1">
+      <div class="field">
+        <label class="label">1.- TIPO</label>
+        <div class="control">
+          <div class="select" >
+            <select  class="select"  [(ngModel)]="TipoLona" >
+              <option *ngFor="let item of ListaTipoLona; let i=index" value="{{ item.id }}">{{ item.desc }}</option>
+              
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="Nodo == 2">
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">2.- SUPERFICIE</label>
+            <div class="control">
+              <div class="select">
+                <select  class="select"  [(ngModel)]="Superficie">
+                  <option *ngFor="let item of ListaSuperficie; let i=index" value="{{ item.id }}">{{ item.desc }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">NOTAS</label>
+            <div class="control">
+              <textarea class="textarea"  [(ngModel)]="NotasSuperficie"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="Nodo == 3">
+      <div class="columns" >
+        <div class="column">
+          <div class="field">
+            <label class="label">3.- CALIDAD</label>
+            <div class="control">
+              <div class="select">
+                <select  class="select" [(ngModel)]="Calidad">
+                  <option *ngFor="let item of ListaCalidad; let i=index" value="{{ item.id }}">{{ item.desc }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">NOTAS</label>
+            <div class="control">
+              <textarea class="textarea"  [(ngModel)]="NotasCalidad"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="Nodo == 4">
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">4.- CANTIDAD Y DIMENSIÓN</label>
+            <div class="control">
+              <div class="columns">
+                <div class="column">
+                  <p>CANTIDAD</p>
+                  <input type="number" class="input"  [(ngModel)]="Cantidad"antidad value="0">
+                </div>
+                <div class="column">
+                  <p>BASE</p>
+                  <input type="number" class="input"  [(ngModel)]="Base" value="0">
+                </div>
+                <div class="column">
+                  <p>ALTURA</p>
+                  <input type="number" class="input"  [(ngModel)]="Altura" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="Nodo == 5">
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">5.- Instalación</label>
+            <div class="control">
+              <div class="columns">
+                <div class="column">
+                  <p>¿REQUIERE INSTALACIÓN O DESINSTALACIÓN?</p>
+                  <select  class="select"  [(ngModel)]="reqInstalacion">
+                    <option value="0">SELECCIONAR</option>
+                    <option value="1">SI</option>
+                    <option value="2">NO</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="columns" *ngIf = "reqInstalacion == 1">
+                <div class="column">
+                  <div class="field">
+                    <label class="label">6.- DATOS DE INSTALACIÓN O DESINSTALACIÓN</label>
+                    <div class="control">
+                      <div class="columns">
+                        <div class="column">
+                          <p>¿LOCAL O FORANEA?</p>
+                          <select  class="select" [(ngModel)]="LugarInstalacion">
+                            <option value="0">SELECCIONAR</option>
+                            <option value="1">LOCAL</option>
+                            <option value="2">FORANEA</option>
+                          </select>
+                        </div>
+                        <div class="column">
+                          <p>¿QUE REQUIERE?</p>
+                          <select  class="select"  [(ngModel)]="requerimiento">
+                            <option value="0">SELECCIONAR</option>
+                            <option value="1">INSTALACIÓN</option>
+                            <option value="2">DESINSTALACIÓN</option>
+                            <option value="3">AMBAS (INSTALACIÓN Y DESINSTALACIÓN)</option>
+                          </select>
+                        </div>
+                        <div class="column">
+                          <p>NOTAS</p>
+                          <input type="text" class="input"  [(ngModel)]="NotasInstalacion" >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="columns">
+      <div class="column" *ngIf="NodoSeleccionado != 0 && TamanoArreglo > IndiceSeleccionado && IndiceSeleccionado > 1">
+        <button type="button" class="button is-info" (click) = "anterior()">Anterior</button>
+      </div>
+      <div class="column" *ngIf="NodoSeleccionado != 0 && TamanoArreglo > IndiceSeleccionado">
+        <button type="button" class="button is-info" (click) = "siguiente()">Siguiente</button>
+      </div>
+      <div class="column" *ngIf="TamanoArreglo == IndiceSeleccionado">
+        <button type="button" class="button is-success" (click) = "guardar()">Guardar</button>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>      
+
+            

@@ -151,7 +151,7 @@
 
 <div id="modal-tema" class="modal is-active" [ngClass]="{'is-active': showProduccion}">
     <div class="modal-background"  (click)="showProduccion = !showProduccion"></div>
-    <div class="modal-card" style="width:60%; height: auto;">
+    <div class="modal-card" style="width:96%; height: auto;">
         <header class="modal-card-head" style="background-color: #00d1b2" >
             <div class="container is-fluid"  style="width:100%;">
                 <h1 class="title" style="color:#FFF;">
@@ -161,101 +161,193 @@
             <a class="button  is-primary" style="position:absolute; top:1em; right:1em;" (click)="showProduccion = !showProduccion"><span class="icon "><i class="fa fa-close"></i></span></a>
         </header>
         <section class="modal-card-body">
-            <div class="columns">
-                <div class="column is-3">
-                    <div class="field">
-                        <label class="label">Folio</label>
-                        <div class="control">
-                            <input class="input" type="text" value="{{ obj_produccion.folio }} ">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-3">
-                    <div class="field">
-                        <label class="label">Fecha</label>
-                        <div class="control">
-                            <input class="input" type="text" value="{{ obj_produccion.fecha }} ">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-6">
-                    <div class="field">
-                        <label class="label">Cliente</label>
-                        <div class="control">
-                            <input class="input" type="text" value="{{ obj_produccion.cliente.nombre }}">
-                        </div>
-                    </div>
-                </div>
-                
+            <div class="tabs">
+                <ul>
+                    <li [ngClass] = "{ 'is-active' : tabs ==1 }">
+                        <a (click)="pestana(1)">
+                        <span class="icon is-small"><i class="fa fa-file" aria-hidden="true"></i></span>
+                        <span>DATOS</span>
+                        </a>
+                    </li>
+                    <li [ngClass] = "{ 'is-active' : tabs == 2 }">
+                        <a (click)="pestana(2)">
+                        <span class="icon is-small"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span>PROCESOS</span>
+                        </a>
+                    </li>
+                    <li [ngClass] = "{ 'is-active' : tabs == 3 }">
+                        <a (click)="pestana(3)">
+                        <span class="icon is-small"><i class="fa fa-money" aria-hidden="true"></i></span>
+                        <span>VENTAS</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <div class="columns">
-                <div class="column is-6">
-                    <div class="field">
-                        <label class="label">Descripción</label>
-                        <div class="control">
-                            <textarea class="textarea">{{ obj_produccion.descripcion }}</textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-6">
-                    <table class="table table-bordered table-striped is-fullwidth">
-                        <thead>
-                            <th>Articulo</th>
-                            <th>Unidades</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item_articulos of obj_produccion.ventas_detalles; let i=index">
-                                <td><b>{{ item_articulos.articulo.nombre }}</b><br>{{ item_articulos.notas }}</td>
-                                <td>{{ item_articulos.unidades }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="columns" *ngIf="obj_produccion.tipo_venta == 2">
-                    <div class="column is-12">
+            <div *ngIf="tabs == 1">
+                <div class="columns">
+                    <div class="column is-3">
                         <div class="field">
-                            <label class="label">Descripción Mostrador</label>
+                            <label class="label">Folio</label>
                             <div class="control">
-                                <textarea class="textarea" rows="2"  [(ngModel)]="produccion.descripcion"></textarea>
+                                <input class="input" type="text" value="{{ obj_produccion.folio }} ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Fecha</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ obj_produccion.fecha }} ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="field">
+                            <label class="label">Cliente</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ obj_produccion.cliente.nombre }}">
                             </div>
                         </div>
                     </div>
                     
                 </div>
-            <div class="columns">
-                <div class="column is-12" S>
-                    <div class="bd-notification">
+                <div class="columns">
+                    <div class="column is-12">
                         <div class="field">
-                            <input class="is-checkradio is-block is-primary" id="produccion_diseno" type="checkbox" [(ngModel)]="produccion.diseno">
-                            <label for="produccion_diseno" style="font-size: 9pt;"><i class='fa fa-paint-brush'></i> DISEÑO</label>
-                        <!--</div>
-                        <div class="field">-->
-                            <input class="is-checkradio is-block is-primary " id="produccion_impresion_gf" type="checkbox" name="produccion_impresion_gf"  [(ngModel)]="produccion.impresion_gf">
-                            <label for="produccion_impresion_gf" style="font-size: 9pt;"><i class='fa fa-print'></i> IMPRESIÓN GRAN FORMATO</label>
-                            
-                            <input class="is-checkradio is-block is-primary " id="produccion_impresion_d" type="checkbox" name="produccion_impresion_d"  [(ngModel)]="produccion.impresion_d">
-                            <label for="produccion_impresion_d" style="font-size: 9pt;"><i class='fa fa-print'></i> IMPRESIÓN DIGITAL</label>
-                        <!--</div>
-                        <div class="field">-->
-                            <input class="is-checkradio is-block is-primary " id="produccion_preparacion" type="checkbox" name="produccion_preparacion" [(ngModel)]="produccion.preparacion">
-                            <label for="produccion_preparacion" style="font-size: 9pt;"><i class='fa fa-wrench'></i>PREPARACIÓN</label>
-                        <!--</div>
-                        <div class="field">-->
-                            <input class="is-checkradio is-block is-primary " id="produccion_instalacion" type="checkbox" name="produccion_instalacion" [(ngModel)]="produccion.instalacion">
-                            <label for="produccion_instalacion" style="font-size: 9pt;"><i class='fa fa-truck'></i>INSTALACIÓN</label>
-                        <!--</div>
-                        <div class="field">-->
-                            <input class="is-checkradio is-block is-primary " id="produccion_entrega" type="checkbox" name="produccion_entrega" [(ngModel)]="produccion.entrega">
-                            <label for="produccion_entrega" style="font-size: 9pt;"><i class='fa fa-shopping-bag'></i>ENTREGA</label>
-                        <!--</div>
-                        <div class="field">-->
-                            <input class="is-checkradio is-block is-primary " id="produccion_maquilas" type="checkbox" name="produccion_maquilas" [(ngModel)]="produccion.maquilas">
-                            <label for="produccion_maquilas" style="font-size: 9pt;"><i class='fa fa-address-card'></i>MAQUILAS</label>
+                            <label class="label">Descripción</label>
+                            <div class="control">
+                                <textarea class="textarea" rows="2">{{ obj_produccion.descripcion }}</textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>
+            <div *ngIf="tabs == 2"> 
+                <div class="columns">   
+                    <div class="column is-12">
+                        <table class="table is-fullwidth">
+                        
+                            <tbody>
+                                <tr *ngFor="let item_articulos of obj_produccion.ventas_detalles; let i=index">
+                                    <td>
+                                        <div class="columns" style="font-weight: bold; background-color:lightblue; padding: 5px important">
+                                            <div class="column is-2">
+                                                Articulo
+                                            </div>
+                                            <div class="column is-4">
+                                                Descripción
+                                            </div>
+                                            <div class="column is-1">
+                                                Unidades
+                                            </div>
+                                            <div class="column is-2">
+                                                Entrega
+                                            </div>
+                                            <div class="column">
+                                                Procesos
+                                            </div>    
+                                        </div>        
+                                        <div class="columns">
+                                            <div class="column is-2">
+                                                <b>{{ item_articulos.articulo.nombre }}</b>
+                                            </div>
+                                            <div class="column is-4">
+                                                <textarea class="textarea" rows="3">{{ item_articulos.notas }}</textarea> 
+                                            </div>
+                                            <div class="column is-1">
+                                                {{ item_articulos.unidades }}
+                                            </div>
+                                            <div class="column is-2">
+                                                <input type="date" class="input">
+                                                <input type="time" class="input">
+                                            </div>
+                                            <div class="column">
+                                                <div class="field has-addons">
+                                                    <p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-paint-brush"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-print"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                    <!--<p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-file-o"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>-->
+                                                    <p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-wrench"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-address-card"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-truck"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                    <p class="control">
+                                                        <button class="button">
+                                                            <span class="icon is-small">
+                                                                <i class="fa fa-shopping-bag"></i>
+                                                            </span>
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </td>
+                                    
+                                </tr>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>    
+           <div *ngIf="tabs == 3">
+                <table class="table is-fullwidth">
+                    <thead>
+                        <th>Clave</th>
+                        <th>Articulo</th>
+                        <th>Descripción</th>
+                        <th>Unidades</th>
+                        <th>P / Unitario</th>
+                        <th>P / Total</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item_articulos of obj_produccion.ventas_detalles; let i=index">
+                            <td><b>{{ item_articulos.clave_articulo }}</b></td>
+                            <td><b>{{ item_articulos.articulo.nombre }}</b></td>
+                           <td>{{ item_articulos.notas }}</td>
+                           <td>{{ item_articulos.unidades }}</td>
+                           <td>{{ item_articulos.precio_unitario }}</td>
+                           <td>{{ item_articulos.precio_total_neto }}</td>
+                        </tr>
+                    </tbody>
+                </table>           
+           </div>
         </section>
         <footer class="" style="position:relative; padding:1em;background: #FFF; border-top:0px solid #EEE; border-radius:0 0 0.8em 0.8em " >
                 <button class="button is-success" (click)= "agregar_produccion()">AGREGAR A PRODUCCIÓN</button>

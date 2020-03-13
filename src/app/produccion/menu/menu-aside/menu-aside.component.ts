@@ -23,7 +23,7 @@ export class MenuAsideComponent implements OnInit {
           { permiso: 'nzHzp0gz4wOA6q7oJmllQGRfencZw92d', icono: 'fa-check-square-o', titulo: 'Trabajos en Espera', url: '/produccion/lista' },
           { permiso: 'VVUmMn5z5OZ2U2gE9h8osymi93HEjxpK', icono: 'fa-paint-brush', titulo: 'Diseño', url: '/produccion/diseno' },
           { permiso: 'MmKDlGTTmfCWOCVIoSlNX4qN96EFDMBA', icono: 'fa-print', titulo: 'Impresion Gran Formato', url: '/produccion/impresion-gf' },
-          { permiso: 'IoBPFfYRYXr0oTkiFLjZS7wdlmh75ySJ', icono: 'fa-print', titulo: 'Impresion Digital', url: '/produccion/impresion-digital' },
+          { permiso: 'IoBPFfYRYXr0oTkiFLjZS7wdlmh75ySJ', icono: 'fa-file-o', titulo: 'Impresion Digital', url: '/produccion/impresion-digital' },
           { permiso: 'DezCUjFR54fvGMScTrVO77ceBVSzB2Nf', icono: 'fa-truck', titulo: 'Preparación, Instalación y Entrega', url: '/produccion/terminados' },
           { permiso: 'RYUiHOsJ78t172DRmsfcasKXc3rIyKMw', icono: 'fa-address-card', titulo: 'Maquilas', url: '/produccion/maquilas' },
           { permiso: 'PzVYnzkMdBHzBpK63thGwPoMqQFCHIkl', icono: 'fa-list-alt', titulo: 'Tablero de Control', url: '/produccion/tablero' }
